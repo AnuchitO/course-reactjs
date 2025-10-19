@@ -167,8 +167,8 @@ const Greeting = () => {
 
 #### Nesting Components
 
-```jsx
-function App() {
+```tsx
+function App(): JSX.Element {
   return (
     <div>
       <Welcome />
@@ -393,9 +393,9 @@ Pass data to components using **props**
 
 #### Props Basics
 
-```jsx
+```tsx
 // Parent component
-function App() {
+function App(): JSX.Element {
   return (
     <div>
       <Greeting name="Alice" age={25} />
@@ -405,7 +405,7 @@ function App() {
 }
 
 // Child component
-function Greeting({ name, age }) {
+function Greeting({ name, age }: { name: string; age: number }): JSX.Element {
   return (
     <div>
       <h1>Hello, {name}!</h1>
@@ -419,8 +419,8 @@ function Greeting({ name, age }) {
 
 #### Props are Read-Only
 
-```jsx
-function Greeting({ name }) {
+```tsx
+function Greeting({ name }: { name: string }): JSX.Element {
   // ❌ This won't work
   name = "Modified"; // Props are immutable
 
@@ -431,8 +431,8 @@ function Greeting({ name }) {
 
 #### Default Props
 
-```jsx
-function Greeting({ name = "Guest", age }) {
+```tsx
+function Greeting({ name = "Guest", age }: { name?: string; age?: number }): JSX.Element {
   return (
     <div>
       <h1>Hello, {name}!</h1>
@@ -444,9 +444,9 @@ function Greeting({ name = "Guest", age }) {
 
 ---
 
-## Props Types
+# Props Types
 
-<div class="bg-gray-800 p-4 rounded-lg">
+<div class="bg-dark-500 p-4 rounded-lg">
 <h4 class="font-bold mb-2">Common Prop Patterns</h4>
 
 - **String** → `<Component text="Hello" />`
@@ -466,8 +466,6 @@ function Greeting({ name = "Guest", age }) {
 </div>
 
 ---
-layout: two-cols
----
 
 # 5. Conditional Rendering
 
@@ -475,8 +473,8 @@ Show different content based on conditions
 
 ## If Statements
 
-```jsx
-function UserStatus({ isLoggedIn }) {
+```tsx
+function UserStatus({ isLoggedIn }: { isLoggedIn: boolean }): JSX.Element {
   if (isLoggedIn) {
     return <h1>Welcome back!</h1>;
   }
@@ -487,8 +485,8 @@ function UserStatus({ isLoggedIn }) {
 
 ## Ternary Operator
 
-```jsx
-function UserStatus({ isLoggedIn }) {
+```tsx
+function UserStatus({ isLoggedIn }: { isLoggedIn: boolean }): JSX.Element {
   return (
     <h1>
       {isLoggedIn ? 'Welcome back!' : 'Please sign in.'}
@@ -497,10 +495,12 @@ function UserStatus({ isLoggedIn }) {
 }
 ```
 
+---
+
 ## Logical AND Operator
 
-```jsx
-function Mailbox({ unreadMessages }) {
+```tsx
+function Mailbox({ unreadMessages }: { unreadMessages: unknown[] }): JSX.Element {
   return (
     <div>
       <h1>Hello!</h1>
@@ -526,7 +526,10 @@ function Button({ isActive }) {
 }
 ```
 
-::right::
+---
+layout: two-cols
+layoutClass: gap-4
+---
 
 ## Switch Statements
 
@@ -544,6 +547,8 @@ function StatusMessage({ status }) {
   }
 }
 ```
+
+::right::
 
 ## Conditional Lists
 
@@ -565,18 +570,24 @@ function ProductList({ products, isAdmin }) {
 ```
 
 ---
-layout: center
-class: text-center
----
 
 # 6. Rendering Lists
 
 Display arrays of data in React
 
-## Basic List Rendering
+### Basic List Rendering
 
-```jsx
-function ProductList({ products }) {
+```tsx
+type Product = {
+  id: number;
+  name: string;
+}
+
+type ProductListProps = {
+  products: Array<Product>;
+}
+
+function ProductList({ products }: ProductListProps): JSX.Element {
   return (
     <ul>
       {products.map(product => (
@@ -588,10 +599,11 @@ function ProductList({ products }) {
   );
 }
 ```
+--- 
 
-## Keys in Lists
+#### Keys in Lists
 
-```jsx
+```jsx {3,8}
 // ❌ Missing keys (React warning)
 {products.map(product => (
   <li>{product.name}</li>
@@ -599,13 +611,11 @@ function ProductList({ products }) {
 
 // ✅ With keys
 {products.map(product => (
-  <li key={product.id}>
-    {product.name}
-  </li>
+  <li key={product.id}>{product.name}</li>
 ))}
 ```
 
-## List with Complex JSX
+#### List with Complex JSX
 
 ```jsx
 function TodoList({ todos }) {
@@ -613,13 +623,8 @@ function TodoList({ todos }) {
     <ul className="todo-list">
       {todos.map(todo => (
         <li key={todo.id} className="todo-item">
-          <input
-            type="checkbox"
-            checked={todo.completed}
-          />
-          <span className={todo.completed ? 'completed' : ''}>
-            {todo.text}
-          </span>
+          <input type="checkbox" checked={todo.completed}/>
+          <span className={todo.completed ? 'completed' : ''}>{todo.text}</span>
           <button>Delete</button>
         </li>
       ))}
@@ -629,50 +634,42 @@ function TodoList({ todos }) {
 ```
 
 ---
-layout: two-cols
+layoutClass: text-xs
 ---
 
-# 7. Event Handling
+# 7. Event Handling -- Respond to user interactions
 
-Respond to user interactions
+#### Basic Event Handlers
 
-## Basic Event Handlers
-
-```jsx
-function Button() {
-  function handleClick() {
+```tsx
+function Button(): JSX.Element {
+  function handleClick(): void {
     console.log('Button clicked!');
   }
 
-  return (
-    <button onClick={handleClick}>
-      Click me
-    </button>
-  );
+  return <button onClick={handleClick}>Click me</button>;
 }
 ```
 
-## Event Handler with Parameters
+#### Event Handler with Parameters
 
-```jsx
-function Button({ message }) {
-  function handleClick() {
-    alert(message);
+```tsx
+function Button({ msg }: { msg: string }): JSX.Element {
+  function handleClick(): void {
+    alert(msg);
   }
 
-  return (
-    <button onClick={handleClick}>
-      Show Message
-    </button>
-  );
+  return <button onClick={handleClick}>Show Message</button>;
 }
 ```
 
-## Arrow Function Handlers
+--- 
 
-```jsx
-function Counter() {
-  const [count, setCount] = useState(0);
+#### Arrow Function Handlers
+
+```tsx
+function Counter(): JSX.Element {
+  const [count, setCount] = useState<number>(0);
 
   return (
     <div>
@@ -685,15 +682,14 @@ function Counter() {
 }
 ```
 
-## Event Object
+#### Event Object
 
-```jsx
-function Form() {
-  function handleSubmit(event) {
+```tsx
+function Form(): JSX.Element {
+  function handleSubmit(event: React.FormEvent<HTMLFormElement>): void {
     event.preventDefault();
     console.log('Form submitted');
   }
-
   return (
     <form onSubmit={handleSubmit}>
       <button type="submit">Submit</button>
@@ -702,7 +698,7 @@ function Form() {
 }
 ```
 
-::right::
+--- 
 
 ## Common Events
 
@@ -711,20 +707,19 @@ function Form() {
 | `onClick` | User clicks | buttons, links, divs |
 | `onChange` | Input value changes | input, textarea, select |
 | `onSubmit` | Form submission | form |
-| `onMouseEnter` | Mouse enters | any element |
-| `onMouseLeave` | Mouse leaves | any element |
 | `onKeyDown` | Key pressed | input, textarea |
+| `onKeyUp` | Key released | input, textarea |
 | `onFocus` | Element focused | input, textarea |
 | `onBlur` | Element loses focus | input, textarea |
 
-<br>
+---
 
-## Event Handler Best Practices
+# Event Handler Best Practices
 
 - Use arrow functions for inline handlers
 - Pass functions, not function calls
-- Use `event.preventDefault()` for forms
-- Clean up event listeners if needed
+- Use `event.preventDefault()` for forms -- <small>Prevent default form submission behavior e.g. page refresh after submit form</small>
+- Clean up event listeners if needed -- <small>e.g. remove event listeners in `useEffect` cleanup function</small>
 
 ---
 layout: image-right
@@ -737,12 +732,12 @@ Manage component data that changes over time
 
 ## useState Hook
 
-```jsx
+```tsx
 import { useState } from 'react';
 
-function Counter() {
+function Counter(): JSX.Element {
   // Declare state variable
-  const [count, setCount] = useState(0);
+  const [count, setCount] = useState<number>(0);
 
   return (
     <div>
@@ -758,31 +753,35 @@ function Counter() {
 }
 ```
 
+--- 
+
 ## State Updates
 
-```jsx
-function Counter() {
-  const [count, setCount] = useState(0);
+```tsx
+function Counter(): JSX.Element {
+  const [count, setCount] = useState<number>(0);
 
-  const increment = () => {
+  const increment = (): void => {
     setCount(count + 1);        // ✅ Correct
-    setCount(count + 1);        // ❌ May not work as expected
+    setCount(count + 1);        // ❌ May not work as expected. because React batches state updates for performance
   };
 
-  const incrementTwice = () => {
+  const incrementTwice = (): void => {
     setCount(prevCount => prevCount + 1);
     setCount(prevCount => prevCount + 1);
   };
 }
 ```
 
+--- 
+
 ## Multiple State Variables
 
-```jsx
-function Form() {
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [age, setAge] = useState(0);
+```tsx 
+function Form(): JSX.Element {
+  const [name, setName] = useState<string>('');
+  const [email, setEmail] = useState<string>('');
+  const [age, setAge] = useState<number>(0);
 
   return (
     <form>
@@ -803,15 +802,18 @@ function Form() {
         placeholder="Age"
       />
     </form>
-  );
-}
+  )};
 ```
 
-::right::
+---
+layout: two-cols-header
+layoutClass: gap-4
+---
 
 ## State Guidelines
 
-<div class="bg-yellow-50 p-4 rounded-lg">
+::left::
+
 <h4 class="font-bold mb-2">When to Use State</h4>
 
 - ✅ User input (forms, search)
@@ -820,7 +822,7 @@ function Form() {
 - ✅ Component lifecycle state
 
 <br>
-
+::right::
 <h4 class="font-bold mb-2">State Best Practices</h4>
 
 - Keep state as simple as possible
@@ -828,7 +830,6 @@ function Form() {
 - Avoid deep nesting in state objects
 - Use functional updates for async operations
 - Don't mutate state directly
-</div>
 
 ---
 layout: two-cols
@@ -840,10 +841,10 @@ Pass data from parent to child and lift state up
 
 ## Props: Parent to Child
 
-```jsx
+```tsx
 // Parent component
-function App() {
-  const [user, setUser] = useState({
+function App(): JSX.Element {
+  const [user, setUser] = useState<{name: string; email: string}>({
     name: 'John',
     email: 'john@example.com'
   });
@@ -857,7 +858,7 @@ function App() {
 }
 
 // Child component
-function Profile({ user }) {
+function Profile({ user }: { user: {name: string; email: string} }): JSX.Element {
   return (
     <div>
       <h2>{user.name}</h2>
@@ -869,16 +870,16 @@ function Profile({ user }) {
 
 ## Lifting State Up
 
-```jsx
+```tsx
 // Before: State in child
-function Child() {
-  const [count, setCount] = useState(0);
+function Child(): JSX.Element {
+  const [count, setCount] = useState<number>(0);
   return <button onClick={() => setCount(count + 1)}>{count}</button>;
 }
 
 // After: State in parent
-function Parent() {
-  const [count, setCount] = useState(0);
+function Parent(): JSX.Element {
+  const [count, setCount] = useState<number>(0);
 
   return (
     <div>
@@ -891,12 +892,12 @@ function Parent() {
 
 ## Context API (Advanced)
 
-```jsx
+```tsx
 // Create context
-const ThemeContext = createContext('light');
+const ThemeContext = createContext<string>('light');
 
 // Provide context
-function App() {
+function App(): JSX.Element {
   return (
     <ThemeContext.Provider value="dark">
       <Toolbar />
@@ -905,7 +906,7 @@ function App() {
 }
 
 // Use context
-function Button() {
+function Button(): JSX.Element {
   const theme = useContext(ThemeContext);
   return <button className={theme}>Click me</button>;
 }
@@ -1005,12 +1006,16 @@ src/
 
 ## Component Structure
 
-```jsx
+```tsx
 // Button.jsx
 import React from 'react';
 import './Button.css';
 
-const Button = ({ children, onClick, variant = 'primary' }) => {
+const Button = ({ children, onClick, variant = 'primary' }: {
+  children: React.ReactNode;
+  onClick?: () => void;
+  variant?: string;
+}): JSX.Element => {
   return (
     <button
       className={`btn btn-${variant}`}
@@ -1122,13 +1127,13 @@ Perform side effects in function components
 
 ## Basic useEffect
 
-```jsx
+```tsx
 import { useState, useEffect } from 'react';
 
-function Timer() {
-  const [count, setCount] = useState(0);
+function Timer(): JSX.Element {
+  const [count, setCount] = useState<number>(0);
 
-  useEffect(() => {
+  useEffect((): (() => void) => {
     // Side effect: Update document title
     document.title = `Count: ${count}`;
   });
@@ -1146,29 +1151,29 @@ function Timer() {
 
 ## Effect Dependencies
 
-```jsx
-useEffect(() => {
+```tsx
+useEffect((): (() => void) => {
   // Runs after every render
 }, []);
 
-useEffect(() => {
+useEffect((): (() => void) => {
   // Runs only when 'count' changes
 }, [count]);
 
-useEffect(() => {
+useEffect((): (() => void) => {
   // Runs only when 'userId' changes
 }, [userId]);
 ```
 
 ## Cleanup Effects
 
-```jsx
-useEffect(() => {
+```tsx
+useEffect((): (() => void) => {
   // Set up subscription
   const subscription = subscribeToUserStatus(userId);
 
   // Cleanup function
-  return () => {
+  return (): void => {
     subscription.unsubscribe();
   };
 }, [userId]);
@@ -1228,20 +1233,20 @@ Access context values without nesting
 
 ## Creating Context
 
-```jsx
+```tsx
 // ThemeContext.js
 import { createContext } from 'react';
 
-export const ThemeContext = createContext('light');
+export const ThemeContext = createContext<string>('light');
 ```
 
 ## Providing Context
 
-```jsx
+```tsx
 // App.jsx
 import { ThemeContext } from './ThemeContext';
 
-function App() {
+function App(): JSX.Element {
   return (
     <ThemeContext.Provider value="dark">
       <Toolbar />
@@ -1252,12 +1257,12 @@ function App() {
 
 ## Consuming Context
 
-```jsx
+```tsx
 // Button.jsx
 import { useContext } from 'react';
 import { ThemeContext } from './ThemeContext';
 
-function Button() {
+function Button(): JSX.Element {
   const theme = useContext(ThemeContext);
 
   return (
@@ -1274,24 +1279,32 @@ function Button() {
 
 <div class="bg-gray-800 p-4 rounded-lg">
 
-```jsx
+```tsx
 // UserContext.jsx
 import { createContext, useContext } from 'react';
 
-const UserContext = createContext();
+const UserContext = createContext<{
+  user: unknown;
+  login: (userData: unknown) => void;
+  logout: () => void;
+} | undefined>(undefined);
 
-export function useUser() {
-  return useContext(UserContext);
+export function useUser(): {
+  user: unknown;
+  login: (userData: unknown) => void;
+  logout: () => void;
+} {
+  return useContext(UserContext)!;
 }
 
-export function UserProvider({ children }) {
-  const [user, setUser] = useState(null);
+export function UserProvider({ children }: { children: React.ReactNode }): JSX.Element {
+  const [user, setUser] = useState<unknown>(null);
 
-  const login = (userData) => {
+  const login = (userData: unknown): void => {
     setUser(userData);
   };
 
-  const logout = () => {
+  const logout = (): void => {
     setUser(null);
   };
 
@@ -1311,8 +1324,8 @@ export function UserProvider({ children }) {
 
 ## Usage in Components
 
-```jsx
-function Profile() {
+```tsx
+function Profile(): JSX.Element {
   const { user, logout } = useUser();
 
   if (!user) return <div>Please login</div>;
@@ -1338,16 +1351,21 @@ Extract component logic into reusable functions
 
 ## Creating Custom Hooks
 
-```jsx
+```tsx
 // useCounter.js
 import { useState } from 'react';
 
-export function useCounter(initialValue = 0) {
-  const [count, setCount] = useState(initialValue);
+export function useCounter(initialValue: number = 0): {
+  count: number;
+  increment: () => void;
+  decrement: () => void;
+  reset: () => void;
+} {
+  const [count, setCount] = useState<number>(initialValue);
 
-  const increment = () => setCount(c => c + 1);
-  const decrement = () => setCount(c => c - 1);
-  const reset = () => setCount(initialValue);
+  const increment = (): void => setCount(c => c + 1);
+  const decrement = (): void => setCount(c => c - 1);
+  const reset = (): void => setCount(initialValue);
 
   return {
     count,
@@ -1360,8 +1378,8 @@ export function useCounter(initialValue = 0) {
 
 ## Using Custom Hooks
 
-```jsx
-function Counter() {
+```tsx
+function Counter(): JSX.Element {
   const { count, increment, decrement, reset } = useCounter(0);
 
   return (
@@ -1377,12 +1395,12 @@ function Counter() {
 
 ## Advanced Custom Hook
 
-```jsx
+```tsx
 // useLocalStorage.js
 import { useState, useEffect } from 'react';
 
-export function useLocalStorage(key, initialValue) {
-  const [storedValue, setStoredValue] = useState(() => {
+export function useLocalStorage<T>(key: string, initialValue: T): [T, (value: T) => void] {
+  const [storedValue, setStoredValue] = useState<T>(() => {
     try {
       const item = localStorage.getItem(key);
       return item ? JSON.parse(item) : initialValue;
@@ -1391,7 +1409,7 @@ export function useLocalStorage(key, initialValue) {
     }
   });
 
-  const setValue = (value) => {
+  const setValue = (value: T): void => {
     try {
       setStoredValue(value);
       localStorage.setItem(key, JSON.stringify(value));
@@ -1411,12 +1429,12 @@ export function useLocalStorage(key, initialValue) {
 <div class="bg-green-50 p-4 rounded-lg">
 
 ### 1. **useFetch Hook**
-```jsx
-function useFetch(url) {
-  const [data, setData] = useState(null);
-  const [loading, setLoading] = useState(true);
+```tsx
+function useFetch(url: string): { data: unknown; loading: boolean } {
+  const [data, setData] = useState<unknown>(null);
+  const [loading, setLoading] = useState<boolean>(true);
 
-  useEffect(() => {
+  useEffect((): (() => void) => {
     fetch(url)
       .then(res => res.json())
       .then(data => {
@@ -1430,25 +1448,25 @@ function useFetch(url) {
 ```
 
 ### 2. **useToggle Hook**
-```jsx
-function useToggle(initialValue = false) {
-  const [value, setValue] = useState(initialValue);
-  const toggle = () => setValue(v => !v);
+```tsx
+function useToggle(initialValue: boolean = false): [boolean, () => void] {
+  const [value, setValue] = useState<boolean>(initialValue);
+  const toggle = (): void => setValue(v => !v);
   return [value, toggle];
 }
 ```
 
 ### 3. **useDebounce Hook**
-```jsx
-function useDebounce(value, delay) {
-  const [debouncedValue, setDebouncedValue] = useState(value);
+```tsx
+function useDebounce(value: string, delay: number): string {
+  const [debouncedValue, setDebouncedValue] = useState<string>(value);
 
-  useEffect(() => {
-    const handler = setTimeout(() => {
+  useEffect((): (() => void) => {
+    const handler = setTimeout((): void => {
       setDebouncedValue(value);
     }, delay);
 
-    return () => clearTimeout(handler);
+    return (): void => clearTimeout(handler);
   }, [value, delay]);
 
   return debouncedValue;
@@ -1476,12 +1494,12 @@ class: text-center
 
 ## 1. Only Call Hooks at the Top Level
 
-```jsx
+```tsx
 // ✅ Good
-function MyComponent() {
-  const [name, setName] = useState('John');
+function MyComponent(): JSX.Element {
+  const [name, setName] = useState<string>('John');
 
-  useEffect(() => {
+  useEffect((): (() => void) => {
     // Effect logic
   }, []);
 
@@ -1489,29 +1507,29 @@ function MyComponent() {
 }
 
 // ❌ Bad - Don't call hooks inside conditions
-function MyComponent() {
+function MyComponent(): JSX.Element {
   if (someCondition) {
-    const [name, setName] = useState('John'); // ❌
+    const [name, setName] = useState<string>('John'); // ❌
   }
 }
 ```
 
 ## 2. Only Call Hooks from React Functions
 
-```jsx
+```tsx
 // ✅ Good - Inside React components
-function MyComponent() {
-  useEffect(() => {}, []);
+function MyComponent(): JSX.Element {
+  useEffect((): (() => void) => {}, []);
 }
 
 // ✅ Good - Inside custom hooks
-function useCustomHook() {
-  useEffect(() => {}, []);
+function useCustomHook(): void {
+  useEffect((): (() => void) => {}, []);
 }
 
 // ❌ Bad - Inside regular functions
-function regularFunction() {
-  useEffect(() => {}, []); // ❌
+function regularFunction(): void {
+  useEffect((): (() => void) => {}, []); // ❌
 }
 ```
 
@@ -1706,15 +1724,15 @@ class: text-center
 
 ## Testing Hooks
 
-```jsx
+```tsx
 // hooks.test.js
 import { renderHook, act } from '@testing-library/react';
 import { useCounter } from './useCounter';
 
-test('should increment counter', () => {
-  const { result } = renderHook(() => useCounter());
+test('should increment counter', (): void => {
+  const { result } = renderHook((): { count: number; increment: () => void } => useCounter());
 
-  act(() => {
+  act((): void => {
     result.current.increment();
   });
 
@@ -1733,7 +1751,7 @@ Moving from class components to hooks
 
 ## Class Component
 
-```jsx
+```tsx
 class Counter extends React.Component {
   constructor(props) {
     super(props);
@@ -1765,11 +1783,11 @@ class Counter extends React.Component {
 
 ## Hook Version
 
-```jsx
-function Counter() {
-  const [count, setCount] = useState(0);
+```tsx
+function Counter(): JSX.Element {
+  const [count, setCount] = useState<number>(0);
 
-  useEffect(() => {
+  useEffect((): (() => void) => {
     document.title = `Count: ${count}`;
   }, [count]);
 
