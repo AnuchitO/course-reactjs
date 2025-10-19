@@ -11,7 +11,6 @@ info: |
   Comprehensive course covering React.js fundamentals and best practices.
 
   Reference: [React Documentation](https://react.dev/learn) | [Tic-tac-toe Tutorial](https://react.dev/learn/tutorial-tic-tac-toe)
-class: text-center
 transition: slide-left
 mdc: true
 ---
@@ -102,6 +101,8 @@ Modern, declarative, and component-based approach to building user interfaces
 - **Unidirectional Data Flow** - Predictable state management
 - **Rich Ecosystem** - Vast collection of libraries and tools
 
+::right::
+
 ## Learning Path
 
 <div class="text-sm opacity-75 mt-4">
@@ -115,32 +116,34 @@ Modern, declarative, and component-based approach to building user interfaces
 
 </div>
 
-::right::
 
-<div class="text-center">
-<img src="https://upload.wikimedia.org/wikipedia/commons/a/a7/React-icon.svg" alt="React Logo" class="w-48 mx-auto mb-8"/>
-
-<div class="text-2xl font-bold mb-4">React 18+</div>
-
-<div class="space-y-2 text-sm">
-  <div>✅ Declarative UI</div>
-  <div>✅ Component Reusability</div>
-  <div>✅ Virtual DOM</div>
-  <div>✅ Strong Community</div>
-  <div>✅ Rich Ecosystem</div>
-</div>
+<div class="text-center mt-8">
+  <div class="flex items-left justify-left gap-4">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/a/a7/React-icon.svg" alt="React Logo" class="w-8"/>
+    <div class="text-xl font-bold">React 18+</div>
+  </div>
+  <div class="space-y-2 text-xs text-left mt-4">
+    <div>✅ Declarative UI</div>
+    <div>✅ Component Reusability</div>
+    <div>✅ Virtual DOM</div>
+    <div>✅ Strong Community</div>
+    <div>✅ Rich Ecosystem</div>
+  </div>
 </div>
 
 ---
-layout: image-right
-image: https://images.unsplash.com/photo-1555949963-aa79dcee981c?w=800&h=600&fit=crop
+layout: two-cols-header
+layoutClass: gap-4
+class: text-sm
 ---
 
 # 1. Creating Components
 
 Components are the building blocks of React applications
 
-## Function Components
+::left::
+
+#### Function Components
 
 ```jsx
 // Basic function component
@@ -154,13 +157,15 @@ const Greeting = () => {
 };
 ```
 
-## Component Naming
+#### Component Naming
 
 - **Capitalize** component names (`Welcome`, not `welcome`)
 - Use **PascalCase** for multi-word components (`UserProfile`)
 - Components must return **JSX** (React elements)
 
-## Nesting Components
+::right::
+
+#### Nesting Components
 
 ```jsx
 function App() {
@@ -173,27 +178,29 @@ function App() {
 }
 ```
 
-::right::
-
-<div class="bg-gray-100 p-6 rounded-lg">
-<h3 class="text-xl font-bold mb-4">Key Points</h3>
-<ul class="space-y-2 text-sm">
-  <li>• Components are JavaScript functions</li>
-  <li>• They return JSX (React elements)</li>
-  <li>• Component names must be capitalized</li>
-  <li>• Components can be nested inside each other</li>
+<div class="bg-gray-800 p-6 rounded-lg">
+<h3 class="mb-4">Key Points</h3>
+<ul class="space-y-1">
+  <li>Components are JavaScript functions</li>
+  <li>They return JSX (React elements)</li>
+  <li>Component names must be capitalized</li>
+  <li>Components can be nested inside each other</li>
 </ul>
 </div>
 
 ---
-layout: two-cols
+layout: two-cols-header
+layoutClass: gap-4
+class: text-xs
 ---
 
 # 2. JSX - JavaScript + XML
 
 JSX allows you to write HTML-like syntax in JavaScript
 
-## Basic JSX Rules
+::left::
+
+#### Basic JSX Rules
 
 ```jsx
 // JSX expressions must have one root element
@@ -207,7 +214,7 @@ function Card() {
 }
 ```
 
-## Embedding JavaScript
+#### Embedding JavaScript
 
 ```jsx
 function Greeting({ name, age }) {
@@ -220,34 +227,9 @@ function Greeting({ name, age }) {
 }
 ```
 
-## JSX Attributes
-
-```jsx
-// HTML attributes become JSX attributes
-<img src="image.jpg" alt="Description" />
-
-// class becomes className
-<div className="container">
-
-// onclick becomes onClick (camelCase)
-<button onClick={handleClick}>
-```
-
 ::right::
 
-## JSX vs HTML Differences
-
-| HTML | JSX |
-|------|-----|
-| `class` | `className` |
-| `onclick` | `onClick` |
-| `for` (label) | `htmlFor` |
-| All lowercase | camelCase for event handlers |
-| String attributes | Expressions in `{}` |
-
-<br>
-
-## Multi-line JSX
+#### Multi-line JSX
 
 ```jsx
 function Profile() {
@@ -265,16 +247,46 @@ function Profile() {
 }
 ```
 
+--- 
+class: text-xs
 ---
-layout: center
-class: text-center
+
+## JSX Attributes
+
+```jsx
+// HTML attributes become JSX attributes
+<img src="image.jpg" alt="Description" />
+
+// class becomes className
+<div className="container">
+
+// onclick becomes onClick (camelCase)
+<button onClick={handleClick}>
+```
+
+<br/>
+
+## HTML vs JSX Differences
+
+| HTML | JSX |
+|------|-----|
+| `class` | `className` |
+| `onclick` | `onClick` |
+| `for` (label) | `htmlFor` |
+| All lowercase | camelCase for event handlers |
+| String attributes | Expressions in `{}` |
+
+---
+layout: two-cols
+layoutClass: gap-2
+class: text-xs
 ---
 
 # 3. Adding Styles
 
 Multiple ways to style React components
 
-## Inline Styles
+#### Inline Styles
 
 ```jsx
 function StyledComponent() {
@@ -289,7 +301,9 @@ function StyledComponent() {
 }
 ```
 
-## CSS Classes (Recommended)
+::right::
+
+#### CSS Classes (Recommended)
 
 ```jsx
 import './Card.css';
@@ -304,7 +318,7 @@ function Card() {
 }
 ```
 
-## CSS Modules
+#### CSS Modules
 
 ```jsx
 import styles from './Card.module.css';
@@ -320,15 +334,64 @@ function Card() {
 ```
 
 ---
-layout: image-right
-image: https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&h=600&fit=crop
+layout: two-cols-header
+layoutClass: gap-2
+class: text-xs
+---
+
+# CSS vs CSS Modules
+
+<div class="text-xs mb-4">
+
+| Aspect                                   | CSS                                  | CSS Modules                                     |
+| ---------------------------------------- | ------------------------------------ | ----------------------------------------------- |
+| Import                                   | `import './Card.css';`               | `import styles from './Card.module.css';`       |
+| Usage                                    | `card`, `card-title`, `card-content` | `styles.card`, `styles.title`, `styles.content` |
+| Prevents Naming Conflicts                | No `card` → `card`                   | Yes `styles.card` → `Card_card__abc123`          |
+| Tree Shaking - unused styles are removed | No                                   | Yes                                             |
+| Scope                                    | Global                               | Local                                           |
+
+</div>
+
+::left::
+
+#### CSS -- Card.css
+
+```css {none}
+.card {
+  color: blue;
+  font-size: 20px;
+  padding: 10px;
+  border-radius: 5px;
+}
+```
+
+::right::
+
+#### CSS Modules -- Card.module.css
+
+```css {none}
+.card {
+  color: blue;
+  font-size: 20px;
+  padding: 10px;
+  border-radius: 5px;
+}
+```
+
+---
+layout: two-cols-header
+layoutClass: gap-2
+class: text-xs
 ---
 
 # 4. Displaying Data
 
 Pass data to components using **props**
 
-## Props Basics
+::left::
+
+#### Props Basics
 
 ```jsx
 // Parent component
@@ -352,7 +415,9 @@ function Greeting({ name, age }) {
 }
 ```
 
-## Props are Read-Only
+::right::
+
+#### Props are Read-Only
 
 ```jsx
 function Greeting({ name }) {
@@ -364,7 +429,7 @@ function Greeting({ name }) {
 }
 ```
 
-## Default Props
+#### Default Props
 
 ```jsx
 function Greeting({ name = "Guest", age }) {
@@ -377,11 +442,11 @@ function Greeting({ name = "Guest", age }) {
 }
 ```
 
-::right::
+---
 
 ## Props Types
 
-<div class="bg-blue-50 p-4 rounded-lg">
+<div class="bg-gray-800 p-4 rounded-lg">
 <h4 class="font-bold mb-2">Common Prop Patterns</h4>
 
 - **String** → `<Component text="Hello" />`
@@ -850,7 +915,7 @@ function Button() {
 
 ## Data Flow Patterns
 
-<div class="bg-gray-100 p-4 rounded-lg">
+<div class="bg-gray-800 p-4 rounded-lg">
 
 ### 1. **Props Down**
 - Pass data from parent to children
@@ -889,7 +954,7 @@ Putting it all together with a practical example
 
 <div class="text-2xl mb-8 font-bold">🎮 Let's Build Tic-Tac-Toe!</div>
 
-<div class="bg-blue-50 p-6 rounded-lg max-w-md mx-auto">
+<div class="bg-gray-800 p-6 rounded-lg max-w-md mx-auto">
   <div class="text-center">
     <div class="grid grid-cols-3 gap-2 mb-4">
       <div class="w-16 h-16 bg-gray-200 rounded flex items-center justify-center text-2xl font-bold">X</div>
@@ -1113,7 +1178,7 @@ useEffect(() => {
 
 ## Common useEffect Patterns
 
-<div class="bg-gray-100 p-4 rounded-lg">
+<div class="bg-gray-800 p-4 rounded-lg">
 
 ### 1. **API Calls**
 ```jsx
@@ -1207,7 +1272,7 @@ function Button() {
 
 ## Context with State
 
-<div class="bg-blue-50 p-4 rounded-lg">
+<div class="bg-gray-800 p-4 rounded-lg">
 
 ```jsx
 // UserContext.jsx
@@ -1615,7 +1680,7 @@ class: text-center
 
 <div class="grid grid-cols-2 gap-8 mt-8 text-left max-w-4xl mx-auto">
 
-<div class="bg-blue-50 p-6 rounded-lg">
+<div class="bg-gray-800 p-6 rounded-lg">
   <h3 class="text-xl font-bold mb-4">✅ Do</h3>
   <ul class="space-y-2 text-sm">
     <li>• Use <code>useMemo</code> for expensive calculations</li>
@@ -1755,7 +1820,693 @@ layout: center
 class: text-center
 ---
 
-# Next Steps
+# 12. React Router Basics
+
+Navigate between pages in React applications
+
+## What is React Router?
+
+<div class="text-2xl mb-8 font-bold">🛣️</div>
+
+React Router is the standard routing library for React applications, enabling navigation between different components and views.
+
+- **Client-side routing** - Navigate without full page reloads
+- **URL management** - Sync browser URL with application state
+- **Nested routes** - Support for complex application layouts
+- **History management** - Browser back/forward button support
+
+## Installation & Setup
+
+```bash
+npm install react-router-dom
+```
+
+```jsx
+// main.jsx
+import { BrowserRouter } from 'react-router-dom';
+import App from './App';
+
+ReactDOM.render(
+  <BrowserRouter>
+    <App />
+  </BrowserRouter>,
+  document.getElementById('root')
+);
+```
+
+---
+layout: two-cols
+---
+
+# Basic Routing
+
+Create navigation between different pages
+
+## Route Configuration
+
+```jsx
+// App.jsx
+import { Routes, Route } from 'react-router-dom';
+
+function App() {
+  return (
+    <div>
+      <Navigation />
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/contact" element={<Contact />} />
+      </Routes>
+    </div>
+  );
+}
+```
+
+## Navigation Component
+
+```jsx
+// Navigation.jsx
+import { Link, NavLink } from 'react-router-dom';
+
+function Navigation() {
+  return (
+    <nav>
+      <Link to="/">Home</Link>
+      <NavLink
+        to="/about"
+        style={({ isActive }) => ({
+          color: isActive ? 'red' : 'blue'
+        })}
+      >
+        About
+      </NavLink>
+      <Link to="/contact">Contact</Link>
+    </nav>
+  );
+}
+```
+
+## Programmatic Navigation
+
+```jsx
+import { useNavigate } from 'react-router-dom';
+
+function LoginButton() {
+  const navigate = useNavigate();
+
+  const handleLogin = () => {
+    // Perform login logic
+    navigate('/dashboard');
+  };
+
+  return <button onClick={handleLogin}>Login</button>;
+}
+```
+
+::right::
+
+## Route Parameters
+
+<div class="bg-gray-800 p-4 rounded-lg">
+
+```jsx
+// Dynamic routes with parameters
+<Route path="/user/:id" element={<UserProfile />} />
+<Route path="/product/:category/:id" element={<ProductDetail />} />
+
+// Accessing route parameters
+import { useParams } from 'react-router-dom';
+
+function UserProfile() {
+  const { id } = useParams();
+
+  return <div>User ID: {id}</div>;
+}
+
+// Query parameters
+<Route path="/search" element={<SearchResults />} />
+
+function SearchResults() {
+  const [searchParams] = useSearchParams();
+  const query = searchParams.get('q');
+
+  return <div>Search results for: {query}</div>;
+}
+```
+
+## Nested Routes
+
+```jsx
+function App() {
+  return (
+    <Routes>
+      <Route path="/dashboard" element={<Dashboard />}>
+        <Route index element={<Overview />} />
+        <Route path="profile" element={<Profile />} />
+        <Route path="settings" element={<Settings />} />
+      </Route>
+    </Routes>
+  );
+}
+
+function Dashboard() {
+  return (
+    <div>
+      <h1>Dashboard</h1>
+      <Outlet /> {/* Renders nested routes */}
+    </div>
+  );
+}
+```
+
+</div>
+
+---
+layout: center
+class: text-center
+---
+
+# 13. Modern State Management
+
+Advanced patterns for complex applications
+
+## State Management Options
+
+<div class="text-2xl mb-8 font-bold">🔄</div>
+
+As applications grow, you need more sophisticated state management solutions beyond local component state.
+
+## Context API Deep Dive
+
+```jsx
+// Advanced Context Pattern
+const ThemeContext = createContext({
+  theme: 'light',
+  toggleTheme: () => {}
+});
+
+export function ThemeProvider({ children }) {
+  const [theme, setTheme] = useState('light');
+
+  const toggleTheme = useCallback(() => {
+    setTheme(prev => prev === 'light' ? 'dark' : 'light');
+  }, []);
+
+  const value = useMemo(() => ({
+    theme,
+    toggleTheme
+  }), [theme, toggleTheme]);
+
+  return (
+    <ThemeContext.Provider value={value}>
+      {children}
+    </ThemeContext.Provider>
+  );
+}
+```
+
+## Redux Toolkit (Recommended)
+
+<div class="grid grid-cols-2 gap-8 mt-8">
+
+<div class="text-left">
+<h3 class="text-xl font-bold mb-4">Store Setup</h3>
+
+```jsx
+// store.js
+import { configureStore } from '@reduxjs/toolkit';
+import counterReducer from './features/counterSlice';
+
+export const store = configureStore({
+  reducer: {
+    counter: counterReducer,
+  },
+});
+```
+
+<h3 class="text-xl font-bold mb-4 mt-8">Slice Pattern</h3>
+
+```jsx
+// features/counterSlice.js
+import { createSlice } from '@reduxjs/toolkit';
+
+const counterSlice = createSlice({
+  name: 'counter',
+  initialState: { value: 0 },
+  reducers: {
+    increment: (state) => {
+      state.value += 1;
+    },
+    decrement: (state) => {
+      state.value -= 1;
+    },
+    incrementByAmount: (state, action) => {
+      state.value += action.payload;
+    },
+  },
+});
+
+export const { increment, decrement, incrementByAmount } = counterSlice.actions;
+export default counterSlice.reducer;
+```
+
+</div>
+
+<div class="text-left">
+<h3 class="text-xl font-bold mb-4">Usage in Components</h3>
+
+```jsx
+import { useSelector, useDispatch } from 'react-redux';
+import { increment, decrement } from './store';
+
+function Counter() {
+  const count = useSelector((state) => state.counter.value);
+  const dispatch = useDispatch();
+
+  return (
+    <div>
+      <div>Count: {count}</div>
+      <button onClick={() => dispatch(increment())}>
+        Increment
+      </button>
+      <button onClick={() => dispatch(decrement())}>
+        Decrement
+      </button>
+    </div>
+  );
+}
+```
+
+<h3 class="text-xl font-bold mb-4 mt-8">Provider Setup</h3>
+
+```jsx
+// main.jsx
+import { Provider } from 'react-redux';
+import { store } from './store';
+
+ReactDOM.render(
+  <Provider store={store}>
+    <App />
+  </Provider>,
+  document.getElementById('root')
+);
+```
+
+</div>
+
+</div>
+
+---
+layout: two-cols
+---
+
+# Alternative State Libraries
+
+Modern alternatives to Redux for different use cases
+
+## Zustand (Lightweight)
+
+```jsx
+// store.js
+import { create } from 'zustand';
+
+const useStore = create((set) => ({
+  count: 0,
+  increment: () => set((state) => ({ count: state.count + 1 })),
+  decrement: () => set((state) => ({ count: state.count - 1 })),
+}));
+
+// Usage
+function Counter() {
+  const { count, increment, decrement } = useStore();
+
+  return (
+    <div>
+      <div>{count}</div>
+      <button onClick={increment}>+</button>
+      <button onClick={decrement}>-</button>
+    </div>
+  );
+}
+```
+
+## Jotai (Atomic)
+
+```jsx
+// atoms.js
+import { atom } from 'jotai';
+
+export const countAtom = atom(0);
+export const doubleCountAtom = atom((get) => get(countAtom) * 2);
+
+// Usage
+function Counter() {
+  const [count, setCount] = useAtom(countAtom);
+  const doubleCount = useAtom(doubleCountAtom);
+
+  return (
+    <div>
+      <div>Count: {count}</div>
+      <div>Double: {doubleCount}</div>
+      <button onClick={() => setCount(c => c + 1)}>
+        Increment
+      </button>
+    </div>
+  );
+}
+```
+
+## Valtio (Proxy-based)
+
+```jsx
+// store.js
+import { proxy } from 'valtio';
+
+export const state = proxy({
+  count: 0,
+  increment: () => state.count++,
+  decrement: () => state.count--,
+});
+
+// Usage (no selectors needed!)
+function Counter() {
+  return (
+    <div>
+      <div>{state.count}</div>
+      <button onClick={state.increment}>+</button>
+      <button onClick={state.decrement}>-</button>
+    </div>
+  );
+}
+```
+
+::right::
+
+## When to Use What?
+
+<div class="bg-gray-800 p-6 rounded-lg">
+
+### **Redux Toolkit** - Best for:
+- Large applications with complex state
+- Teams that need strong conventions
+- Server-side rendering
+- Advanced debugging needs
+
+### **Zustand** - Best for:
+- Medium-sized applications
+- Simple, intuitive API
+- Quick setup and minimal boilerplate
+- TypeScript support
+
+### **Jotai** - Best for:
+- Component-scoped state
+- Derived state calculations
+- Atomic state updates
+- React concurrent features
+
+### **Context + useReducer** - Best for:
+- Simple global state
+- Application-wide themes/settings
+- Authentication state
+- Replacing prop drilling
+
+<br>
+
+<h4 class="font-bold">General Guidelines</h4>
+- Start with Context + useReducer
+- Move to Zustand for medium complexity
+- Use Redux Toolkit for large, complex apps
+- Consider Jotai for advanced React patterns
+
+</div>
+
+---
+layout: center
+class: text-center
+---
+
+# 14. Testing React Components
+
+Ensure your code works correctly
+
+## Testing Setup
+
+<div class="text-2xl mb-8 font-bold">🧪</div>
+
+Testing is crucial for maintaining reliable React applications and catching bugs before they reach production.
+
+## Essential Testing Libraries
+
+```bash
+# Install testing dependencies
+npm install --save-dev @testing-library/react @testing-library/jest-dom @testing-library/user-event jest-environment-jsdom
+```
+
+## Basic Component Testing
+
+```jsx
+// Button.test.jsx
+import { render, screen, fireEvent } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
+import Button from './Button';
+
+test('renders button with text', () => {
+  render(<Button>Click me</Button>);
+
+  expect(screen.getByRole('button')).toHaveTextContent('Click me');
+});
+
+test('calls onClick when clicked', async () => {
+  const handleClick = jest.fn();
+  const user = userEvent.setup();
+
+  render(<Button onClick={handleClick}>Click me</Button>);
+
+  await user.click(screen.getByRole('button'));
+
+  expect(handleClick).toHaveBeenCalledTimes(1);
+});
+```
+
+## Testing Hooks
+
+```jsx
+// useCounter.test.js
+import { renderHook, act } from '@testing-library/react';
+import { useCounter } from './useCounter';
+
+test('should increment counter', () => {
+  const { result } = renderHook(() => useCounter());
+
+  act(() => {
+    result.current.increment();
+  });
+
+  expect(result.current.count).toBe(1);
+});
+
+test('should decrement counter', () => {
+  const { result } = renderHook(() => useCounter(5));
+
+  act(() => {
+    result.current.decrement();
+  });
+
+  expect(result.current.count).toBe(4);
+});
+```
+
+---
+layout: two-cols
+---
+
+# Testing Best Practices
+
+Write maintainable and reliable tests
+
+## Test Structure
+
+```jsx
+// Good test structure
+describe('ComponentName', () => {
+  describe('when condition', () => {
+    it('should behavior', () => {
+      // Arrange
+      const mockFn = jest.fn();
+
+      // Act
+      render(<Component onAction={mockFn} />);
+
+      // Assert
+      expect(mockFn).toHaveBeenCalled();
+    });
+  });
+});
+```
+
+## Common Testing Patterns
+
+```jsx
+// Testing user interactions
+test('form submission', async () => {
+  const user = userEvent.setup();
+  const handleSubmit = jest.fn();
+
+  render(<Form onSubmit={handleSubmit} />);
+
+  await user.type(screen.getByLabelText('Email'), 'test@example.com');
+  await user.click(screen.getByRole('button', { name: 'Submit' }));
+
+  expect(handleSubmit).toHaveBeenCalledWith({
+    email: 'test@example.com'
+  });
+});
+
+// Testing async operations
+test('loads data on mount', async () => {
+  const mockData = { id: 1, name: 'Test' };
+
+  jest.spyOn(api, 'fetchUser').mockResolvedValue(mockData);
+
+  render(<UserProfile userId={1} />);
+
+  expect(await screen.findByText('Test')).toBeInTheDocument();
+});
+```
+
+## Mocking External Dependencies
+
+```jsx
+// Mock API calls
+import * as api from './api';
+
+jest.mock('./api');
+
+test('handles API success', async () => {
+  api.fetchUser.mockResolvedValue({ name: 'John' });
+
+  render(<UserProfile />);
+
+  expect(await screen.findByText('John')).toBeInTheDocument();
+});
+
+// Mock child components
+jest.mock('./ExpensiveComponent', () => {
+  return function MockExpensiveComponent() {
+    return <div>Mock Component</div>;
+  };
+});
+```
+
+::right::
+
+## Testing Coverage
+
+<div class="bg-gray-800 p-6 rounded-lg">
+
+### **What to Test**
+- ✅ Component renders correctly
+- ✅ User interactions work
+- ✅ Props are used properly
+- ✅ State changes trigger re-renders
+- ✅ Error conditions are handled
+- ✅ Accessibility features work
+
+### **What NOT to Test**
+- ❌ Implementation details (unless public API)
+- ❌ Third-party library internals
+- ❌ CSS styles (use visual regression testing)
+- ❌ Other components' behavior
+
+<br>
+
+<h4 class="font-bold">Testing Pyramid</h4>
+
+```
+        E2E Tests (few)
+      Integration Tests
+    Component Tests (many)
+  Unit Tests (most)
+```
+
+<br>
+
+<h4 class="font-bold">Tools & Commands</h4>
+
+```bash
+# Run tests
+npm test
+
+# Run tests in watch mode
+npm test -- --watch
+
+# Run tests with coverage
+npm test -- --coverage
+
+# Update snapshots
+npm test -- --updateSnapshot
+```
+
+</div>
+
+---
+layout: center
+class: text-center
+---
+
+# Testing with TypeScript
+
+Type-safe testing for better development experience
+
+## TypeScript Testing Setup
+
+```jsx
+// types/test-utils.d.ts
+import '@testing-library/jest-dom';
+
+// Extend Jest matchers
+declare global {
+  namespace Vi {
+    interface Assertion {
+      toBeInTheDocument(): void;
+      toHaveClass(className: string): void;
+    }
+  }
+}
+```
+
+## Testing TypeScript Components
+
+```jsx
+// Button.test.tsx
+import { render, screen } from '@testing-library/react';
+import { Button } from './Button';
+
+interface ButtonProps {
+  children: React.ReactNode;
+  onClick?: () => void;
+  variant?: 'primary' | 'secondary';
+}
+
+test('renders with correct variant', () => {
+  render(<Button variant="secondary">Click me</Button>);
+
+  expect(screen.getByRole('button')).toHaveClass('btn-secondary');
+});
+
+// Testing with proper typing
+test('calls onClick with correct types', () => {
+  const handleClick = jest.fn<ReturnType<typeof handleClick>, Parameters<typeof handleClick>>();
+
+  render(<Button onClick={handleClick}>Click</Button>);
+
+  fireEvent.click(screen.getByRole('button'));
+
+  expect(handleClick).toHaveBeenCalledTimes(1);
+});
+```
+
+## Next Steps
 
 Continue your React learning journey
 
