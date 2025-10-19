@@ -1009,6 +1009,752 @@ layout: center
 class: text-center
 ---
 
+# 11. React Hooks
+
+Modern React state management and side effects
+
+## What are Hooks?
+
+<div class="text-2xl mb-8 font-bold">🪝</div>
+
+Hooks are functions that let you "hook into" React state and lifecycle features from function components.
+
+- **No more classes** - Use state and lifecycle in function components
+- **Reusable logic** - Share stateful logic between components
+- **Modern React** - The future of React development
+
+## Built-in Hooks
+
+<div class="grid grid-cols-3 gap-6 mt-8">
+
+<div class="text-center">
+  <div class="w-16 h-16 bg-blue-500 rounded-full flex items-center justify-center text-white text-xl font-bold mx-auto mb-4">🎯</div>
+  <h3 class="text-lg font-bold mb-2">useState</h3>
+  <p class="text-sm opacity-75">Manage component state</p>
+</div>
+
+<div class="text-center">
+  <div class="w-16 h-16 bg-green-500 rounded-full flex items-center justify-center text-white text-xl font-bold mx-auto mb-4">⚡</div>
+  <h3 class="text-lg font-bold mb-2">useEffect</h3>
+  <p class="text-sm opacity-75">Side effects & lifecycle</p>
+</div>
+
+<div class="text-center">
+  <div class="w-16 h-16 bg-purple-500 rounded-full flex items-center justify-center text-white text-xl font-bold mx-auto mb-4">🌐</div>
+  <h3 class="text-lg font-bold mb-2">useContext</h3>
+  <p class="text-sm opacity-75">Access context values</p>
+</div>
+
+</div>
+
+---
+layout: two-cols
+---
+
+# useEffect Hook
+
+Perform side effects in function components
+
+## Basic useEffect
+
+```jsx
+import { useState, useEffect } from 'react';
+
+function Timer() {
+  const [count, setCount] = useState(0);
+
+  useEffect(() => {
+    // Side effect: Update document title
+    document.title = `Count: ${count}`;
+  });
+
+  return (
+    <div>
+      <p>Count: {count}</p>
+      <button onClick={() => setCount(count + 1)}>
+        Increment
+      </button>
+    </div>
+  );
+}
+```
+
+## Effect Dependencies
+
+```jsx
+useEffect(() => {
+  // Runs after every render
+}, []);
+
+useEffect(() => {
+  // Runs only when 'count' changes
+}, [count]);
+
+useEffect(() => {
+  // Runs only when 'userId' changes
+}, [userId]);
+```
+
+## Cleanup Effects
+
+```jsx
+useEffect(() => {
+  // Set up subscription
+  const subscription = subscribeToUserStatus(userId);
+
+  // Cleanup function
+  return () => {
+    subscription.unsubscribe();
+  };
+}, [userId]);
+```
+
+::right::
+
+## Common useEffect Patterns
+
+<div class="bg-gray-100 p-4 rounded-lg">
+
+### 1. **API Calls**
+```jsx
+useEffect(() => {
+  fetchUserData(userId)
+    .then(setUser);
+}, [userId]);
+```
+
+### 2. **Event Listeners**
+```jsx
+useEffect(() => {
+  window.addEventListener('resize', handleResize);
+  return () => window.removeEventListener('resize', handleResize);
+}, []);
+```
+
+### 3. **Timers**
+```jsx
+useEffect(() => {
+  const timer = setInterval(() => {
+    setTime(new Date());
+  }, 1000);
+
+  return () => clearInterval(timer);
+}, []);
+```
+
+<br>
+
+<h4 class="font-bold">Effect Rules</h4>
+- Effects run **after** every render
+- Use dependencies array to control when effects run
+- Always cleanup subscriptions/timers in return function
+- Don't put objects/functions in dependencies (use useCallback/useMemo)
+
+</div>
+
+---
+layout: image-right
+image: https://images.unsplash.com/photo-1555949963-aa79dcee981c?w=800&h=600&fit=crop
+---
+
+# useContext Hook
+
+Access context values without nesting
+
+## Creating Context
+
+```jsx
+// ThemeContext.js
+import { createContext } from 'react';
+
+export const ThemeContext = createContext('light');
+```
+
+## Providing Context
+
+```jsx
+// App.jsx
+import { ThemeContext } from './ThemeContext';
+
+function App() {
+  return (
+    <ThemeContext.Provider value="dark">
+      <Toolbar />
+    </ThemeContext.Provider>
+  );
+}
+```
+
+## Consuming Context
+
+```jsx
+// Button.jsx
+import { useContext } from 'react';
+import { ThemeContext } from './ThemeContext';
+
+function Button() {
+  const theme = useContext(ThemeContext);
+
+  return (
+    <button className={`btn-${theme}`}>
+      Themed Button
+    </button>
+  );
+}
+```
+
+::right::
+
+## Context with State
+
+<div class="bg-blue-50 p-4 rounded-lg">
+
+```jsx
+// UserContext.jsx
+import { createContext, useContext } from 'react';
+
+const UserContext = createContext();
+
+export function useUser() {
+  return useContext(UserContext);
+}
+
+export function UserProvider({ children }) {
+  const [user, setUser] = useState(null);
+
+  const login = (userData) => {
+    setUser(userData);
+  };
+
+  const logout = () => {
+    setUser(null);
+  };
+
+  const value = {
+    user,
+    login,
+    logout
+  };
+
+  return (
+    <UserContext.Provider value={value}>
+      {children}
+    </UserContext.Provider>
+  );
+}
+```
+
+## Usage in Components
+
+```jsx
+function Profile() {
+  const { user, logout } = useUser();
+
+  if (!user) return <div>Please login</div>;
+
+  return (
+    <div>
+      <h1>Welcome, {user.name}!</h1>
+      <button onClick={logout}>Logout</button>
+    </div>
+  );
+}
+```
+
+</div>
+
+---
+layout: two-cols
+---
+
+# Custom Hooks
+
+Extract component logic into reusable functions
+
+## Creating Custom Hooks
+
+```jsx
+// useCounter.js
+import { useState } from 'react';
+
+export function useCounter(initialValue = 0) {
+  const [count, setCount] = useState(initialValue);
+
+  const increment = () => setCount(c => c + 1);
+  const decrement = () => setCount(c => c - 1);
+  const reset = () => setCount(initialValue);
+
+  return {
+    count,
+    increment,
+    decrement,
+    reset
+  };
+}
+```
+
+## Using Custom Hooks
+
+```jsx
+function Counter() {
+  const { count, increment, decrement, reset } = useCounter(0);
+
+  return (
+    <div>
+      <p>Count: {count}</p>
+      <button onClick={increment}>+</button>
+      <button onClick={decrement}>-</button>
+      <button onClick={reset}>Reset</button>
+    </div>
+  );
+}
+```
+
+## Advanced Custom Hook
+
+```jsx
+// useLocalStorage.js
+import { useState, useEffect } from 'react';
+
+export function useLocalStorage(key, initialValue) {
+  const [storedValue, setStoredValue] = useState(() => {
+    try {
+      const item = localStorage.getItem(key);
+      return item ? JSON.parse(item) : initialValue;
+    } catch (error) {
+      return initialValue;
+    }
+  });
+
+  const setValue = (value) => {
+    try {
+      setStoredValue(value);
+      localStorage.setItem(key, JSON.stringify(value));
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  return [storedValue, setValue];
+}
+```
+
+::right::
+
+## Custom Hook Examples
+
+<div class="bg-green-50 p-4 rounded-lg">
+
+### 1. **useFetch Hook**
+```jsx
+function useFetch(url) {
+  const [data, setData] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    fetch(url)
+      .then(res => res.json())
+      .then(data => {
+        setData(data);
+        setLoading(false);
+      });
+  }, [url]);
+
+  return { data, loading };
+}
+```
+
+### 2. **useToggle Hook**
+```jsx
+function useToggle(initialValue = false) {
+  const [value, setValue] = useState(initialValue);
+  const toggle = () => setValue(v => !v);
+  return [value, toggle];
+}
+```
+
+### 3. **useDebounce Hook**
+```jsx
+function useDebounce(value, delay) {
+  const [debouncedValue, setDebouncedValue] = useState(value);
+
+  useEffect(() => {
+    const handler = setTimeout(() => {
+      setDebouncedValue(value);
+    }, delay);
+
+    return () => clearTimeout(handler);
+  }, [value, delay]);
+
+  return debouncedValue;
+}
+```
+
+<br>
+
+<h4 class="font-bold">Custom Hook Rules</h4>
+- Start hook names with "use"
+- Only call hooks at the top level
+- Only call hooks from React functions
+- Extract reusable logic into custom hooks
+
+</div>
+
+---
+layout: center
+class: text-center
+---
+
+# Rules of Hooks
+
+<div class="text-3xl mb-8 font-bold">📋</div>
+
+## 1. Only Call Hooks at the Top Level
+
+```jsx
+// ✅ Good
+function MyComponent() {
+  const [name, setName] = useState('John');
+
+  useEffect(() => {
+    // Effect logic
+  }, []);
+
+  return <div>Hello {name}</div>;
+}
+
+// ❌ Bad - Don't call hooks inside conditions
+function MyComponent() {
+  if (someCondition) {
+    const [name, setName] = useState('John'); // ❌
+  }
+}
+```
+
+## 2. Only Call Hooks from React Functions
+
+```jsx
+// ✅ Good - Inside React components
+function MyComponent() {
+  useEffect(() => {}, []);
+}
+
+// ✅ Good - Inside custom hooks
+function useCustomHook() {
+  useEffect(() => {}, []);
+}
+
+// ❌ Bad - Inside regular functions
+function regularFunction() {
+  useEffect(() => {}, []); // ❌
+}
+```
+
+## 3. Call Hooks in the Same Order
+
+React relies on the order of hook calls. Always call hooks in the same order on every render.
+
+---
+layout: two-cols
+---
+
+# Advanced Hooks
+
+More powerful React hooks for complex scenarios
+
+## useReducer
+
+```jsx
+import { useReducer } from 'react';
+
+function todoReducer(state, action) {
+  switch (action.type) {
+    case 'ADD_TODO':
+      return [...state, { id: Date.now(), text: action.text }];
+    case 'DELETE_TODO':
+      return state.filter(todo => todo.id !== action.id);
+    default:
+      return state;
+  }
+}
+
+function TodoApp() {
+  const [todos, dispatch] = useReducer(todoReducer, []);
+
+  const addTodo = (text) => {
+    dispatch({ type: 'ADD_TODO', text });
+  };
+
+  return (
+    <div>
+      <button onClick={() => addTodo('New Todo')}>
+        Add Todo
+      </button>
+      <ul>
+        {todos.map(todo => (
+          <li key={todo.id}>{todo.text}</li>
+        ))}
+      </ul>
+    </div>
+  );
+}
+```
+
+## useMemo & useCallback
+
+```jsx
+import { useMemo, useCallback } from 'react';
+
+function ExpensiveComponent({ data, onItemClick }) {
+  // Memoize expensive calculation
+  const processedData = useMemo(() => {
+    return data.map(item => item * 2);
+  }, [data]);
+
+  // Memoize event handler
+  const handleClick = useCallback((item) => {
+    onItemClick(item);
+  }, [onItemClick]);
+
+  return (
+    <div>
+      {processedData.map((item, index) => (
+        <button key={index} onClick={() => handleClick(item)}>
+          {item}
+        </button>
+      ))}
+    </div>
+  );
+}
+```
+
+::right::
+
+## useRef Hook
+
+```jsx
+import { useRef, useEffect } from 'react';
+
+function TextInput() {
+  const inputRef = useRef(null);
+
+  useEffect(() => {
+    // Focus input on mount
+    inputRef.current?.focus();
+  }, []);
+
+  return (
+    <input
+      ref={inputRef}
+      type="text"
+      placeholder="Focus me!"
+    />
+  );
+}
+
+// Accessing DOM elements
+function VideoPlayer() {
+  const videoRef = useRef(null);
+
+  const playVideo = () => {
+    videoRef.current?.play();
+  };
+
+  return (
+    <div>
+      <video ref={videoRef} src="video.mp4" />
+      <button onClick={playVideo}>Play</button>
+    </div>
+  );
+}
+```
+
+## useImperativeHandle
+
+```jsx
+import { useRef, useImperativeHandle, forwardRef } from 'react';
+
+const CustomInput = forwardRef((props, ref) => {
+  const inputRef = useRef();
+
+  useImperativeHandle(ref, () => ({
+    focus: () => inputRef.current?.focus(),
+    clear: () => inputRef.current.value = ''
+  }));
+
+  return <input ref={inputRef} {...props} />;
+});
+
+function Parent() {
+  const inputRef = useRef();
+
+  return (
+    <div>
+      <CustomInput ref={inputRef} />
+      <button onClick={() => inputRef.current?.focus()}>
+        Focus Input
+      </button>
+      <button onClick={() => inputRef.current?.clear()}>
+        Clear Input
+      </button>
+    </div>
+  );
+}
+```
+
+---
+layout: center
+class: text-center
+---
+
+# Hooks Best Practices
+
+<div class="text-2xl mb-8 font-bold">💡</div>
+
+## Performance Tips
+
+<div class="grid grid-cols-2 gap-8 mt-8 text-left max-w-4xl mx-auto">
+
+<div class="bg-blue-50 p-6 rounded-lg">
+  <h3 class="text-xl font-bold mb-4">✅ Do</h3>
+  <ul class="space-y-2 text-sm">
+    <li>• Use <code>useMemo</code> for expensive calculations</li>
+    <li>• Use <code>useCallback</code> for event handlers passed to children</li>
+    <li>• Keep dependencies arrays minimal but correct</li>
+    <li>• Extract custom hooks for reusable logic</li>
+    <li>• Use <code>useReducer</code> for complex state logic</li>
+  </ul>
+</div>
+
+<div class="bg-red-50 p-6 rounded-lg">
+  <h3 class="text-xl font-bold mb-4">❌ Don't</h3>
+  <ul class="space-y-2 text-sm">
+    <li>• Don't overuse hooks - keep components simple</li>
+    <li>• Don't put objects/functions in dependencies</li>
+    <li>• Don't call hooks conditionally</li>
+    <li>• Don't nest hook calls</li>
+    <li>• Don't create hooks inside loops or conditions</li>
+  </ul>
+</div>
+
+</div>
+
+## Testing Hooks
+
+```jsx
+// hooks.test.js
+import { renderHook, act } from '@testing-library/react';
+import { useCounter } from './useCounter';
+
+test('should increment counter', () => {
+  const { result } = renderHook(() => useCounter());
+
+  act(() => {
+    result.current.increment();
+  });
+
+  expect(result.current.count).toBe(1);
+});
+```
+
+---
+layout: image-right
+image: https://images.unsplash.com/photo-1633356122544-f134324a6cee?w=800&h=600&fit=crop
+---
+
+# Hooks Migration Guide
+
+Moving from class components to hooks
+
+## Class Component
+
+```jsx
+class Counter extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { count: 0 };
+  }
+
+  componentDidMount() {
+    document.title = `Count: ${this.state.count}`;
+  }
+
+  componentDidUpdate() {
+    document.title = `Count: ${this.state.count}`;
+  }
+
+  increment = () => {
+    this.setState({ count: this.state.count + 1 });
+  };
+
+  render() {
+    return (
+      <div>
+        <p>Count: {this.state.count}</p>
+        <button onClick={this.increment}>+</button>
+      </div>
+    );
+  }
+}
+```
+
+## Hook Version
+
+```jsx
+function Counter() {
+  const [count, setCount] = useState(0);
+
+  useEffect(() => {
+    document.title = `Count: ${count}`;
+  }, [count]);
+
+  const increment = () => {
+    setCount(count + 1);
+  };
+
+  return (
+    <div>
+      <p>Count: {count}</p>
+      <button onClick={increment}>+</button>
+    </div>
+  );
+}
+```
+
+::right::
+
+## Migration Benefits
+
+<div class="bg-green-50 p-6 rounded-lg">
+
+### ✅ **Advantages of Hooks**
+- **Less code** - No constructor, no this binding
+- **Reusable logic** - Extract logic into custom hooks
+- **Better testing** - Test hooks in isolation
+- **Modern React** - Future-proof your code
+- **Easier to understand** - Colocated logic
+
+### 🔄 **Migration Strategy**
+1. Start new components with hooks
+2. Gradually migrate existing class components
+3. Extract complex logic into custom hooks
+4. Use React DevTools Profiler to identify optimization opportunities
+
+<br>
+
+<h4 class="font-bold">Common Patterns</h4>
+- Replace `componentDidMount` with `useEffect`
+- Replace `componentDidUpdate` with `useEffect` with dependencies
+- Replace `componentWillUnmount` with cleanup function in `useEffect`
+- Replace instance methods with functions defined inside the component
+
+</div>
+
+---
+layout: center
+class: text-center
+---
+
 # Next Steps
 
 Continue your React learning journey
