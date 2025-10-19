@@ -1,626 +1,268 @@
 ---
-# try also 'default' to start simple
+# React.js Course Presentation
 theme: seriph
-# random image from a curated Unsplash collection by Anthony
-# like them? see https://unsplash.com/collections/94734566/slidev
-background: https://cover.sli.dev
-# some information about your slides (markdown enabled)
-title: Welcome to Slidev
+# Background for React course
+background: https://images.unsplash.com/photo-1633356122544-f134324a6cee?w=1920&h=1080&fit=crop
+# Presentation information
+title: React.js Fundamentals Course
 info: |
-  ## Slidev Starter Template
-  Presentation slides for developers.
+  ## Learn Modern React Development
 
-  Learn more at [Sli.dev](https://sli.dev)
-# apply UnoCSS classes to the current slide
+  Comprehensive course covering React.js fundamentals and best practices.
+
+  Reference: [React Documentation](https://react.dev/learn) | [Tic-tac-toe Tutorial](https://react.dev/learn/tutorial-tic-tac-toe)
 class: text-center
-# https://sli.dev/features/drawing
-drawings:
-  persist: false
-# slide transition: https://sli.dev/guide/animations.html#slide-transitions
 transition: slide-left
-# enable MDC Syntax: https://sli.dev/features/mdc
 mdc: true
 ---
 
-# Welcome to Slidev
+# React.js Fundamentals Course
 
-Presentation slides for developers
+<div class="text-4xl mb-8">
+  🚀 Learn Modern React Development
+</div>
 
-<div @click="$slidev.nav.next" class="mt-12 py-1" hover:bg="white op-10">
-  Press Space for next page <carbon:arrow-right />
+<div class="text-2xl mb-12">
+  From Components to Complete Applications
+</div>
+
+<div @click="$slidev.nav.next" class="mt-8 py-2 px-6 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors cursor-pointer inline-block">
+  Start Learning <carbon:arrow-right class="inline ml-2" />
 </div>
 
 <div class="abs-br m-6 text-xl">
   <button @click="$slidev.nav.openInEditor()" title="Open in Editor" class="slidev-icon-btn">
     <carbon:edit />
   </button>
-  <a href="https://github.com/slidevjs/slidev" target="_blank" class="slidev-icon-btn">
-    <carbon:logo-github />
+  <a href="https://react.dev" target="_blank" class="slidev-icon-btn">
+    <carbon:logo-react />
   </a>
 </div>
 
-<!--
-The last comment block of each slide will be treated as slide notes. It will be visible and editable in Presenter Mode along with the slide. [Read more in the docs](https://sli.dev/guide/syntax.html#notes)
--->
-
 ---
 transition: fade-out
+layout: center
+class: text-center
 ---
 
-# What is Slidev?
+# What You'll Learn
 
-Slidev is a slides maker and presenter designed for developers, consist of the following features
+<div class="grid grid-cols-2 gap-8 mt-12 text-left">
 
-- 📝 **Text-based** - focus on the content with Markdown, and then style them later
-- 🎨 **Themable** - themes can be shared and re-used as npm packages
-- 🧑‍💻 **Developer Friendly** - code highlighting, live coding with autocompletion
-- 🤹 **Interactive** - embed Vue components to enhance your expressions
-- 🎥 **Recording** - built-in recording and camera view
-- 📤 **Portable** - export to PDF, PPTX, PNGs, or even a hostable SPA
-- 🛠 **Hackable** - virtually anything that's possible on a webpage is possible in Slidev
-<br>
-<br>
+<div class="space-y-4">
+<div class="flex items-center space-x-3">
+  <div class="w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center text-white font-bold">1</div>
+  <span class="text-xl">Create and nest components</span>
+</div>
 
-Read more about [Why Slidev?](https://sli.dev/guide/why)
+<div class="flex items-center space-x-3">
+  <div class="w-8 h-8 bg-green-500 rounded-full flex items-center justify-center text-white font-bold">2</div>
+  <span class="text-xl">Add markup and styles</span>
+</div>
 
-<!--
-You can have `style` tag in markdown to override the style for the current page.
-Learn more: https://sli.dev/features/slide-scope-style
--->
+<div class="flex items-center space-x-3">
+  <div class="w-8 h-8 bg-purple-500 rounded-full flex items-center justify-center text-white font-bold">3</div>
+  <span class="text-xl">Display data</span>
+</div>
+</div>
 
-<style>
-h1 {
-  background-color: #2B90B6;
-  background-image: linear-gradient(45deg, #4EC5D4 10%, #146b8c 20%);
-  background-size: 100%;
-  -webkit-background-clip: text;
-  -moz-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  -moz-text-fill-color: transparent;
-}
-</style>
+<div class="space-y-4">
+<div class="flex items-center space-x-3">
+  <div class="w-8 h-8 bg-orange-500 rounded-full flex items-center justify-center text-white font-bold">4</div>
+  <span class="text-xl">Render conditions and lists</span>
+</div>
 
-<!--
-Here is another comment.
--->
+<div class="flex items-center space-x-3">
+  <div class="w-8 h-8 bg-red-500 rounded-full flex items-center justify-center text-white font-bold">5</div>
+  <span class="text-xl">Respond to events and update screen</span>
+</div>
 
----
-transition: slide-up
-level: 2
----
+<div class="flex items-center space-x-3">
+  <div class="w-8 h-8 bg-pink-500 rounded-full flex items-center justify-center text-white font-bold">6</div>
+  <span class="text-xl">Share data between components</span>
+</div>
+</div>
 
-# Navigation
-
-Hover on the bottom-left corner to see the navigation's controls panel, [learn more](https://sli.dev/guide/ui#navigation-bar)
-
-## Keyboard Shortcuts
-
-|                                                     |                             |
-| --------------------------------------------------- | --------------------------- |
-| <kbd>right</kbd> / <kbd>space</kbd>                 | next animation or slide     |
-| <kbd>left</kbd>  / <kbd>shift</kbd><kbd>space</kbd> | previous animation or slide |
-| <kbd>up</kbd>                                       | previous slide              |
-| <kbd>down</kbd>                                     | next slide                  |
-
-<!-- https://sli.dev/guide/animations.html#click-animation -->
-<img
-  v-click
-  class="absolute -bottom-9 -left-7 w-80 opacity-50"
-  src="https://sli.dev/assets/arrow-bottom-left.svg"
-  alt=""
-/>
-<p v-after class="absolute bottom-23 left-45 opacity-30 transform -rotate-10">Here!</p>
+</div>
 
 ---
 layout: two-cols
 layoutClass: gap-16
 ---
 
-# Table of contents
+# Why React?
 
-You can use the `Toc` component to generate a table of contents for your slides:
+Modern, declarative, and component-based approach to building user interfaces
 
-```html
-<Toc minDepth="1" maxDepth="1" />
-```
+## Key Benefits
 
-The title will be inferred from your slide content, or you can override it with `title` and `level` in your frontmatter.
+- **Component-Based Architecture** - Build encapsulated components
+- **Virtual DOM** - Efficient updates and rendering
+- **JSX Syntax** - Write HTML-like code in JavaScript
+- **Unidirectional Data Flow** - Predictable state management
+- **Rich Ecosystem** - Vast collection of libraries and tools
+
+## Learning Path
+
+<div class="text-sm opacity-75 mt-4">
+
+1. **Core Concepts** → Components, JSX, Props
+2. **State & Events** → Managing component state
+3. **Lists & Keys** → Dynamic content rendering
+4. **Component Communication** → Props, State lifting
+5. **Hooks** → Modern state management
+6. **Projects** → Apply concepts in real applications
+
+</div>
 
 ::right::
 
-<Toc text-sm minDepth="1" maxDepth="2" />
+<div class="text-center">
+<img src="https://upload.wikimedia.org/wikipedia/commons/a/a7/React-icon.svg" alt="React Logo" class="w-48 mx-auto mb-8"/>
+
+<div class="text-2xl font-bold mb-4">React 18+</div>
+
+<div class="space-y-2 text-sm">
+  <div>✅ Declarative UI</div>
+  <div>✅ Component Reusability</div>
+  <div>✅ Virtual DOM</div>
+  <div>✅ Strong Community</div>
+  <div>✅ Rich Ecosystem</div>
+</div>
+</div>
 
 ---
 layout: image-right
-image: https://cover.sli.dev
+image: https://images.unsplash.com/photo-1555949963-aa79dcee981c?w=800&h=600&fit=crop
 ---
 
-# Code
+# 1. Creating Components
 
-Use code snippets and get the highlighting directly, and even types hover!
+Components are the building blocks of React applications
 
-```ts [filename-example.ts] {all|4|6|6-7|9|all} twoslash
-// TwoSlash enables TypeScript hover information
-// and errors in markdown code blocks
-// More at https://shiki.style/packages/twoslash
-import { computed, ref } from 'vue'
+## Function Components
 
-const count = ref(0)
-const doubled = computed(() => count.value * 2)
+```jsx
+// Basic function component
+function Welcome() {
+  return <h1>Hello, World!</h1>;
+}
 
-doubled.value = 2
+// Arrow function component
+const Greeting = () => {
+  return <p>Welcome to React!</p>;
+};
 ```
 
-<arrow v-click="[4, 5]" x1="350" y1="310" x2="195" y2="342" color="#953" width="2" arrowSize="1" />
+## Component Naming
 
-<!-- This allow you to embed external code blocks -->
-<<< @/snippets/external.ts#snippet
+- **Capitalize** component names (`Welcome`, not `welcome`)
+- Use **PascalCase** for multi-word components (`UserProfile`)
+- Components must return **JSX** (React elements)
 
-<!-- Footer -->
+## Nesting Components
 
-[Learn more](https://sli.dev/features/line-highlighting)
-
-<!-- Inline style -->
-<style>
-.footnotes-sep {
-  @apply mt-5 opacity-10;
-}
-.footnotes {
-  @apply text-sm opacity-75;
-}
-.footnote-backref {
-  display: none;
-}
-</style>
-
-<!--
-Notes can also sync with clicks
-
-[click] This will be highlighted after the first click
-
-[click] Highlighted with `count = ref(0)`
-
-[click:3] Last click (skip two clicks)
--->
-
----
-level: 2
----
-
-# Shiki Magic Move
-
-Powered by [shiki-magic-move](https://shiki-magic-move.netlify.app/), Slidev supports animations across multiple code snippets.
-
-Add multiple code blocks and wrap them with <code>````md magic-move</code> (four backticks) to enable the magic move. For example:
-
-````md magic-move {lines: true}
-```ts {*|2|*}
-// step 1
-const author = reactive({
-  name: 'John Doe',
-  books: [
-    'Vue 2 - Advanced Guide',
-    'Vue 3 - Basic Guide',
-    'Vue 4 - The Mystery'
-  ]
-})
-```
-
-```ts {*|1-2|3-4|3-4,8}
-// step 2
-export default {
-  data() {
-    return {
-      author: {
-        name: 'John Doe',
-        books: [
-          'Vue 2 - Advanced Guide',
-          'Vue 3 - Basic Guide',
-          'Vue 4 - The Mystery'
-        ]
-      }
-    }
-  }
+```jsx
+function App() {
+  return (
+    <div>
+      <Welcome />
+      <Greeting />
+    </div>
+  );
 }
 ```
 
-```ts
-// step 3
-export default {
-  data: () => ({
-    author: {
-      name: 'John Doe',
-      books: [
-        'Vue 2 - Advanced Guide',
-        'Vue 3 - Basic Guide',
-        'Vue 4 - The Mystery'
-      ]
-    }
-  })
+::right::
+
+<div class="bg-gray-100 p-6 rounded-lg">
+<h3 class="text-xl font-bold mb-4">Key Points</h3>
+<ul class="space-y-2 text-sm">
+  <li>• Components are JavaScript functions</li>
+  <li>• They return JSX (React elements)</li>
+  <li>• Component names must be capitalized</li>
+  <li>• Components can be nested inside each other</li>
+</ul>
+</div>
+
+---
+layout: two-cols
+---
+
+# 2. JSX - JavaScript + XML
+
+JSX allows you to write HTML-like syntax in JavaScript
+
+## Basic JSX Rules
+
+```jsx
+// JSX expressions must have one root element
+function Card() {
+  return (
+    <div className="card">
+      <h2>Title</h2>
+      <p>Description</p>
+    </div>
+  );
 }
 ```
 
-Non-code blocks are ignored.
+## Embedding JavaScript
 
-```vue
-<!-- step 4 -->
-<script setup>
-const author = {
-  name: 'John Doe',
-  books: [
-    'Vue 2 - Advanced Guide',
-    'Vue 3 - Basic Guide',
-    'Vue 4 - The Mystery'
-  ]
+```jsx
+function Greeting({ name, age }) {
+  return (
+    <div>
+      <h1>Hello, {name}!</h1>
+      <p>You are {age} years old.</p>
+    </div>
+  );
 }
-</script>
-```
-````
-
----
-
-# Components
-
-<div grid="~ cols-2 gap-4">
-<div>
-
-You can use Vue components directly inside your slides.
-
-We have provided a few built-in components like `<Tweet/>` and `<Youtube/>` that you can use directly. And adding your custom components is also super easy.
-
-```html
-<Counter :count="10" />
 ```
 
-<!-- ./components/Counter.vue -->
-<Counter :count="10" m="t-4" />
+## JSX Attributes
 
-Check out [the guides](https://sli.dev/builtin/components.html) for more.
+```jsx
+// HTML attributes become JSX attributes
+<img src="image.jpg" alt="Description" />
 
-</div>
-<div>
+// class becomes className
+<div className="container">
 
-```html
-<Tweet id="1390115482657726468" />
+// onclick becomes onClick (camelCase)
+<button onClick={handleClick}>
 ```
 
-<Tweet id="1390115482657726468" scale="0.65" />
+::right::
 
-</div>
-</div>
+## JSX vs HTML Differences
 
-<!--
-Presenter note with **bold**, *italic*, and ~~striked~~ text.
-
-Also, HTML elements are valid:
-<div class="flex w-full">
-  <span style="flex-grow: 1;">Left content</span>
-  <span>Right content</span>
-</div>
--->
-
----
-class: px-20
----
-
-# Themes
-
-Slidev comes with powerful theming support. Themes can provide styles, layouts, components, or even configurations for tools. Switching between themes by just **one edit** in your frontmatter:
-
-<div grid="~ cols-2 gap-2" m="t-2">
-
-```yaml
----
-theme: default
----
-```
-
-```yaml
----
-theme: seriph
----
-```
-
-<img border="rounded" src="https://github.com/slidevjs/themes/blob/main/screenshots/theme-default/01.png?raw=true" alt="">
-
-<img border="rounded" src="https://github.com/slidevjs/themes/blob/main/screenshots/theme-seriph/01.png?raw=true" alt="">
-
-</div>
-
-Read more about [How to use a theme](https://sli.dev/guide/theme-addon#use-theme) and
-check out the [Awesome Themes Gallery](https://sli.dev/resources/theme-gallery).
-
----
-
-# Clicks Animations
-
-You can add `v-click` to elements to add a click animation.
-
-<div v-click>
-
-This shows up when you click the slide:
-
-```html
-<div v-click>This shows up when you click the slide.</div>
-```
-
-</div>
+| HTML | JSX |
+|------|-----|
+| `class` | `className` |
+| `onclick` | `onClick` |
+| `for` (label) | `htmlFor` |
+| All lowercase | camelCase for event handlers |
+| String attributes | Expressions in `{}` |
 
 <br>
 
-<v-click>
+## Multi-line JSX
 
-The <span v-mark.red="3"><code>v-mark</code> directive</span>
-also allows you to add
-<span v-mark.circle.orange="4">inline marks</span>
-, powered by [Rough Notation](https://roughnotation.com/):
-
-```html
-<span v-mark.underline.orange>inline markers</span>
-```
-
-</v-click>
-
-<div mt-20 v-click>
-
-[Learn more](https://sli.dev/guide/animations#click-animation)
-
-</div>
-
----
-
-# Motions
-
-Motion animations are powered by [@vueuse/motion](https://motion.vueuse.org/), triggered by `v-motion` directive.
-
-```html
-<div
-  v-motion
-  :initial="{ x: -80 }"
-  :enter="{ x: 0 }"
-  :click-3="{ x: 80 }"
-  :leave="{ x: 1000 }"
->
-  Slidev
-</div>
-```
-
-<div class="w-60 relative">
-  <div class="relative w-40 h-40">
-    <img
-      v-motion
-      :initial="{ x: 800, y: -100, scale: 1.5, rotate: -50 }"
-      :enter="final"
-      class="absolute inset-0"
-      src="https://sli.dev/logo-square.png"
-      alt=""
-    />
-    <img
-      v-motion
-      :initial="{ y: 500, x: -100, scale: 2 }"
-      :enter="final"
-      class="absolute inset-0"
-      src="https://sli.dev/logo-circle.png"
-      alt=""
-    />
-    <img
-      v-motion
-      :initial="{ x: 600, y: 400, scale: 2, rotate: 100 }"
-      :enter="final"
-      class="absolute inset-0"
-      src="https://sli.dev/logo-triangle.png"
-      alt=""
-    />
-  </div>
-
-  <div
-    class="text-5xl absolute top-14 left-40 text-[#2B90B6] -z-1"
-    v-motion
-    :initial="{ x: -80, opacity: 0}"
-    :enter="{ x: 0, opacity: 1, transition: { delay: 2000, duration: 1000 } }">
-    Slidev
-  </div>
-</div>
-
-<!-- vue script setup scripts can be directly used in markdown, and will only affects current page -->
-<script setup lang="ts">
-const final = {
-  x: 0,
-  y: 0,
-  rotate: 0,
-  scale: 1,
-  transition: {
-    type: 'spring',
-    damping: 10,
-    stiffness: 20,
-    mass: 2
-  }
+```jsx
+function Profile() {
+  return (
+    <>
+      <h1>Profile</h1>
+      <img
+        src="profile.jpg"
+        alt="Profile picture"
+        className="avatar"
+      />
+      <p>Bio information...</p>
+    </>
+  );
 }
-</script>
-
-<div
-  v-motion
-  :initial="{ x:35, y: 30, opacity: 0}"
-  :enter="{ y: 0, opacity: 1, transition: { delay: 3500 } }">
-
-[Learn more](https://sli.dev/guide/animations.html#motion)
-
-</div>
-
----
-
-# LaTeX
-
-LaTeX is supported out-of-box. Powered by [KaTeX](https://katex.org/).
-
-<div h-3 />
-
-Inline $\sqrt{3x-1}+(1+x)^2$
-
-Block
-$$ {1|3|all}
-\begin{aligned}
-\nabla \cdot \vec{E} &= \frac{\rho}{\varepsilon_0} \\
-\nabla \cdot \vec{B} &= 0 \\
-\nabla \times \vec{E} &= -\frac{\partial\vec{B}}{\partial t} \\
-\nabla \times \vec{B} &= \mu_0\vec{J} + \mu_0\varepsilon_0\frac{\partial\vec{E}}{\partial t}
-\end{aligned}
-$$
-
-[Learn more](https://sli.dev/features/latex)
-
----
-
-# Diagrams
-
-You can create diagrams / graphs from textual descriptions, directly in your Markdown.
-
-<div class="grid grid-cols-4 gap-5 pt-4 -mb-6">
-
-```mermaid {scale: 0.5, alt: 'A simple sequence diagram'}
-sequenceDiagram
-    Alice->John: Hello John, how are you?
-    Note over Alice,John: A typical interaction
-```
-
-```mermaid {theme: 'neutral', scale: 0.8}
-graph TD
-B[Text] --> C{Decision}
-C -->|One| D[Result 1]
-C -->|Two| E[Result 2]
-```
-
-```mermaid
-mindmap
-  root((mindmap))
-    Origins
-      Long history
-      ::icon(fa fa-book)
-      Popularisation
-        British popular psychology author Tony Buzan
-    Research
-      On effectiveness<br/>and features
-      On Automatic creation
-        Uses
-            Creative techniques
-            Strategic planning
-            Argument mapping
-    Tools
-      Pen and paper
-      Mermaid
-```
-
-```plantuml {scale: 0.7}
-@startuml
-
-package "Some Group" {
-  HTTP - [First Component]
-  [Another Component]
-}
-
-node "Other Groups" {
-  FTP - [Second Component]
-  [First Component] --> FTP
-}
-
-cloud {
-  [Example 1]
-}
-
-database "MySql" {
-  folder "This is my folder" {
-    [Folder 3]
-  }
-  frame "Foo" {
-    [Frame 4]
-  }
-}
-
-[Another Component] --> [Example 1]
-[Example 1] --> [Folder 3]
-[Folder 3] --> [Frame 4]
-
-@enduml
-```
-
-</div>
-
-Learn more: [Mermaid Diagrams](https://sli.dev/features/mermaid) and [PlantUML Diagrams](https://sli.dev/features/plantuml)
-
----
-foo: bar
-dragPos:
-  square: 691,32,167,_,-16
----
-
-# Draggable Elements
-
-Double-click on the draggable elements to edit their positions.
-
-<br>
-
-###### Directive Usage
-
-```md
-<img v-drag="'square'" src="https://sli.dev/logo.png">
-```
-
-<br>
-
-###### Component Usage
-
-```md
-<v-drag text-3xl>
-  <div class="i-carbon:arrow-up" />
-  Use the `v-drag` component to have a draggable container!
-</v-drag>
-```
-
-<v-drag pos="663,206,261,_,-15">
-  <div text-center text-3xl border border-main rounded>
-    Double-click me!
-  </div>
-</v-drag>
-
-<img v-drag="'square'" src="https://sli.dev/logo.png">
-
-###### Draggable Arrow
-
-```md
-<v-drag-arrow two-way />
-```
-
-<v-drag-arrow pos="67,452,253,46" two-way op70 />
-
----
-src: ./pages/imported-slides.md
-hide: false
----
-
----
-
-# Monaco Editor
-
-Slidev provides built-in Monaco Editor support.
-
-Add `{monaco}` to the code block to turn it into an editor:
-
-```ts {monaco}
-import { ref } from 'vue'
-import { emptyArray } from './external'
-
-const arr = ref(emptyArray(10))
-```
-
-Use `{monaco-run}` to create an editor that can execute the code directly in the slide:
-
-```ts {monaco-run}
-import { version } from 'vue'
-import { emptyArray, sayHello } from './external'
-
-sayHello()
-console.log(`vue ${version}`)
-console.log(emptyArray<number>(10).reduce(fib => [...fib, fib.at(-1)! + fib.at(-2)!], [1, 1]))
 ```
 
 ---
@@ -628,8 +270,832 @@ layout: center
 class: text-center
 ---
 
-# Learn More
+# 3. Adding Styles
 
-[Documentation](https://sli.dev) · [GitHub](https://github.com/slidevjs/slidev) · [Showcases](https://sli.dev/resources/showcases)
+Multiple ways to style React components
 
-<PoweredBySlidev mt-10 />
+## Inline Styles
+
+```jsx
+function StyledComponent() {
+  const styles = {
+    color: 'blue',
+    fontSize: '20px',
+    padding: '10px',
+    borderRadius: '5px'
+  };
+
+  return <div style={styles}>Styled Content</div>;
+}
+```
+
+## CSS Classes (Recommended)
+
+```jsx
+import './Card.css';
+
+function Card() {
+  return (
+    <div className="card">
+      <h2 className="card-title">Title</h2>
+      <p className="card-content">Content</p>
+    </div>
+  );
+}
+```
+
+## CSS Modules
+
+```jsx
+import styles from './Card.module.css';
+
+function Card() {
+  return (
+    <div className={styles.card}>
+      <h2 className={styles.title}>Title</h2>
+      <p className={styles.content}>Content</p>
+    </div>
+  );
+}
+```
+
+---
+layout: image-right
+image: https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&h=600&fit=crop
+---
+
+# 4. Displaying Data
+
+Pass data to components using **props**
+
+## Props Basics
+
+```jsx
+// Parent component
+function App() {
+  return (
+    <div>
+      <Greeting name="Alice" age={25} />
+      <Greeting name="Bob" age={30} />
+    </div>
+  );
+}
+
+// Child component
+function Greeting({ name, age }) {
+  return (
+    <div>
+      <h1>Hello, {name}!</h1>
+      <p>You are {age} years old.</p>
+    </div>
+  );
+}
+```
+
+## Props are Read-Only
+
+```jsx
+function Greeting({ name }) {
+  // ❌ This won't work
+  name = "Modified"; // Props are immutable
+
+  // ✅ Do this instead
+  return <h1>Hello, {name}!</h1>;
+}
+```
+
+## Default Props
+
+```jsx
+function Greeting({ name = "Guest", age }) {
+  return (
+    <div>
+      <h1>Hello, {name}!</h1>
+      {age && <p>You are {age} years old.</p>}
+    </div>
+  );
+}
+```
+
+::right::
+
+## Props Types
+
+<div class="bg-blue-50 p-4 rounded-lg">
+<h4 class="font-bold mb-2">Common Prop Patterns</h4>
+
+- **String** → `<Component text="Hello" />`
+- **Number** → `<Component count={5} />`
+- **Boolean** → `<Component isVisible={true} />`
+- **Array** → `<Component items={[1,2,3]} />`
+- **Object** → `<Component user={{name: "John"}} />`
+- **Function** → `<Component onClick={handleClick} />`
+
+<br>
+
+<h4 class="font-bold mb-2">Best Practices</h4>
+- Keep props simple and focused
+- Use destructuring for cleaner code
+- Validate props in development (PropTypes)
+- Document prop requirements
+</div>
+
+---
+layout: two-cols
+---
+
+# 5. Conditional Rendering
+
+Show different content based on conditions
+
+## If Statements
+
+```jsx
+function UserStatus({ isLoggedIn }) {
+  if (isLoggedIn) {
+    return <h1>Welcome back!</h1>;
+  }
+
+  return <h1>Please sign in.</h1>;
+}
+```
+
+## Ternary Operator
+
+```jsx
+function UserStatus({ isLoggedIn }) {
+  return (
+    <h1>
+      {isLoggedIn ? 'Welcome back!' : 'Please sign in.'}
+    </h1>
+  );
+}
+```
+
+## Logical AND Operator
+
+```jsx
+function Mailbox({ unreadMessages }) {
+  return (
+    <div>
+      <h1>Hello!</h1>
+      {unreadMessages.length > 0 && (
+        <p>
+          You have {unreadMessages.length} unread messages.
+        </p>
+      )}
+    </div>
+  );
+}
+```
+
+## Conditional Classes
+
+```jsx
+function Button({ isActive }) {
+  return (
+    <button className={`btn ${isActive ? 'active' : ''}`}>
+      Click me
+    </button>
+  );
+}
+```
+
+::right::
+
+## Switch Statements
+
+```jsx
+function StatusMessage({ status }) {
+  switch (status) {
+    case 'loading':
+      return <div>Loading...</div>;
+    case 'success':
+      return <div>Success!</div>;
+    case 'error':
+      return <div>Error occurred</div>;
+    default:
+      return <div>Unknown status</div>;
+  }
+}
+```
+
+## Conditional Lists
+
+```jsx
+function ProductList({ products, isAdmin }) {
+  return (
+    <div>
+      {products.map(product => (
+        <div key={product.id}>
+          <h3>{product.name}</h3>
+          {isAdmin && (
+            <button>Edit</button>
+          )}
+        </div>
+      ))}
+    </div>
+  );
+}
+```
+
+---
+layout: center
+class: text-center
+---
+
+# 6. Rendering Lists
+
+Display arrays of data in React
+
+## Basic List Rendering
+
+```jsx
+function ProductList({ products }) {
+  return (
+    <ul>
+      {products.map(product => (
+        <li key={product.id}>
+          {product.name}
+        </li>
+      ))}
+    </ul>
+  );
+}
+```
+
+## Keys in Lists
+
+```jsx
+// ❌ Missing keys (React warning)
+{products.map(product => (
+  <li>{product.name}</li>
+))}
+
+// ✅ With keys
+{products.map(product => (
+  <li key={product.id}>
+    {product.name}
+  </li>
+))}
+```
+
+## List with Complex JSX
+
+```jsx
+function TodoList({ todos }) {
+  return (
+    <ul className="todo-list">
+      {todos.map(todo => (
+        <li key={todo.id} className="todo-item">
+          <input
+            type="checkbox"
+            checked={todo.completed}
+          />
+          <span className={todo.completed ? 'completed' : ''}>
+            {todo.text}
+          </span>
+          <button>Delete</button>
+        </li>
+      ))}
+    </ul>
+  );
+}
+```
+
+---
+layout: two-cols
+---
+
+# 7. Event Handling
+
+Respond to user interactions
+
+## Basic Event Handlers
+
+```jsx
+function Button() {
+  function handleClick() {
+    console.log('Button clicked!');
+  }
+
+  return (
+    <button onClick={handleClick}>
+      Click me
+    </button>
+  );
+}
+```
+
+## Event Handler with Parameters
+
+```jsx
+function Button({ message }) {
+  function handleClick() {
+    alert(message);
+  }
+
+  return (
+    <button onClick={handleClick}>
+      Show Message
+    </button>
+  );
+}
+```
+
+## Arrow Function Handlers
+
+```jsx
+function Counter() {
+  const [count, setCount] = useState(0);
+
+  return (
+    <div>
+      <p>Count: {count}</p>
+      <button onClick={() => setCount(count + 1)}>
+        Increment
+      </button>
+    </div>
+  );
+}
+```
+
+## Event Object
+
+```jsx
+function Form() {
+  function handleSubmit(event) {
+    event.preventDefault();
+    console.log('Form submitted');
+  }
+
+  return (
+    <form onSubmit={handleSubmit}>
+      <button type="submit">Submit</button>
+    </form>
+  );
+}
+```
+
+::right::
+
+## Common Events
+
+| Event | Description | Element |
+|-------|-------------|---------|
+| `onClick` | User clicks | buttons, links, divs |
+| `onChange` | Input value changes | input, textarea, select |
+| `onSubmit` | Form submission | form |
+| `onMouseEnter` | Mouse enters | any element |
+| `onMouseLeave` | Mouse leaves | any element |
+| `onKeyDown` | Key pressed | input, textarea |
+| `onFocus` | Element focused | input, textarea |
+| `onBlur` | Element loses focus | input, textarea |
+
+<br>
+
+## Event Handler Best Practices
+
+- Use arrow functions for inline handlers
+- Pass functions, not function calls
+- Use `event.preventDefault()` for forms
+- Clean up event listeners if needed
+
+---
+layout: image-right
+image: https://images.unsplash.com/photo-1551650975-87deedd944c3?w=800&h=600&fit=crop
+---
+
+# 8. State Management
+
+Manage component data that changes over time
+
+## useState Hook
+
+```jsx
+import { useState } from 'react';
+
+function Counter() {
+  // Declare state variable
+  const [count, setCount] = useState(0);
+
+  return (
+    <div>
+      <p>Count: {count}</p>
+      <button onClick={() => setCount(count + 1)}>
+        Increment
+      </button>
+      <button onClick={() => setCount(count - 1)}>
+        Decrement
+      </button>
+    </div>
+  );
+}
+```
+
+## State Updates
+
+```jsx
+function Counter() {
+  const [count, setCount] = useState(0);
+
+  const increment = () => {
+    setCount(count + 1);        // ✅ Correct
+    setCount(count + 1);        // ❌ May not work as expected
+  };
+
+  const incrementTwice = () => {
+    setCount(prevCount => prevCount + 1);
+    setCount(prevCount => prevCount + 1);
+  };
+}
+```
+
+## Multiple State Variables
+
+```jsx
+function Form() {
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [age, setAge] = useState(0);
+
+  return (
+    <form>
+      <input
+        value={name}
+        onChange={e => setName(e.target.value)}
+        placeholder="Name"
+      />
+      <input
+        value={email}
+        onChange={e => setEmail(e.target.value)}
+        placeholder="Email"
+      />
+      <input
+        type="number"
+        value={age}
+        onChange={e => setAge(Number(e.target.value))}
+        placeholder="Age"
+      />
+    </form>
+  );
+}
+```
+
+::right::
+
+## State Guidelines
+
+<div class="bg-yellow-50 p-4 rounded-lg">
+<h4 class="font-bold mb-2">When to Use State</h4>
+
+- ✅ User input (forms, search)
+- ✅ UI state (modals, dropdowns)
+- ✅ Server data (API responses)
+- ✅ Component lifecycle state
+
+<br>
+
+<h4 class="font-bold mb-2">State Best Practices</h4>
+
+- Keep state as simple as possible
+- Group related state together
+- Avoid deep nesting in state objects
+- Use functional updates for async operations
+- Don't mutate state directly
+</div>
+
+---
+layout: two-cols
+---
+
+# 9. Sharing Data Between Components
+
+Pass data from parent to child and lift state up
+
+## Props: Parent to Child
+
+```jsx
+// Parent component
+function App() {
+  const [user, setUser] = useState({
+    name: 'John',
+    email: 'john@example.com'
+  });
+
+  return (
+    <div>
+      <Header user={user} />
+      <Profile user={user} />
+    </div>
+  );
+}
+
+// Child component
+function Profile({ user }) {
+  return (
+    <div>
+      <h2>{user.name}</h2>
+      <p>{user.email}</p>
+    </div>
+  );
+}
+```
+
+## Lifting State Up
+
+```jsx
+// Before: State in child
+function Child() {
+  const [count, setCount] = useState(0);
+  return <button onClick={() => setCount(count + 1)}>{count}</button>;
+}
+
+// After: State in parent
+function Parent() {
+  const [count, setCount] = useState(0);
+
+  return (
+    <div>
+      <Child count={count} onIncrement={() => setCount(count + 1)} />
+      <AnotherChild count={count} />
+    </div>
+  );
+}
+```
+
+## Context API (Advanced)
+
+```jsx
+// Create context
+const ThemeContext = createContext('light');
+
+// Provide context
+function App() {
+  return (
+    <ThemeContext.Provider value="dark">
+      <Toolbar />
+    </ThemeContext.Provider>
+  );
+}
+
+// Use context
+function Button() {
+  const theme = useContext(ThemeContext);
+  return <button className={theme}>Click me</button>;
+}
+```
+
+::right::
+
+## Data Flow Patterns
+
+<div class="bg-gray-100 p-4 rounded-lg">
+
+### 1. **Props Down**
+- Pass data from parent to children
+- Unidirectional data flow
+- Most common pattern
+
+### 2. **Events Up**
+- Children notify parents of changes
+- Parents manage state
+- Handle user interactions
+
+### 3. **Context**
+- Share data across component tree
+- Avoid "prop drilling"
+- Use for global state
+
+<br>
+
+<h4 class="font-bold">Best Practices</h4>
+- Keep state as close as possible to where it's needed
+- Lift state up only when multiple components need it
+- Use context sparingly for truly global state
+- Prefer props for component communication
+</div>
+
+---
+layout: center
+class: text-center
+---
+
+# 10. Building a Complete App
+
+Putting it all together with a practical example
+
+## Tic-Tac-Toe Game
+
+<div class="text-2xl mb-8 font-bold">🎮 Let's Build Tic-Tac-Toe!</div>
+
+<div class="bg-blue-50 p-6 rounded-lg max-w-md mx-auto">
+  <div class="text-center">
+    <div class="grid grid-cols-3 gap-2 mb-4">
+      <div class="w-16 h-16 bg-gray-200 rounded flex items-center justify-center text-2xl font-bold">X</div>
+      <div class="w-16 h-16 bg-gray-200 rounded flex items-center justify-center text-2xl font-bold">O</div>
+      <div class="w-16 h-16 bg-gray-200 rounded flex items-center justify-center text-2xl font-bold">X</div>
+      <div class="w-16 h-16 bg-gray-200 rounded flex items-center justify-center text-2xl font-bold">O</div>
+      <div class="w-16 h-16 bg-blue-200 rounded flex items-center justify-center text-2xl font-bold">X</div>
+      <div class="w-16 h-16 bg-gray-200 rounded flex items-center justify-center text-2xl font-bold"></div>
+      <div class="w-16 h-16 bg-gray-200 rounded flex items-center justify-center text-2xl font-bold">O</div>
+      <div class="w-16 h-16 bg-gray-200 rounded flex items-center justify-center text-2xl font-bold">X</div>
+      <div class="w-16 h-16 bg-gray-200 rounded flex items-center justify-center text-2xl font-bold">O</div>
+    </div>
+    <div class="text-lg font-bold">Next player: X</div>
+    <button class="mt-4 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">
+      Restart Game
+    </button>
+  </div>
+</div>
+
+---
+layout: image-right
+image: https://images.unsplash.com/photo-1517180102446-f3ece451e9d8?w=800&h=600&fit=crop
+---
+
+# Project Structure
+
+Organize your React application effectively
+
+## File Organization
+
+```
+src/
+  components/
+    Button.jsx
+    Card.jsx
+    Header.jsx
+  pages/
+    Home.jsx
+    About.jsx
+  hooks/
+    useAuth.js
+    useApi.js
+  utils/
+    helpers.js
+  App.jsx
+  index.jsx
+```
+
+## Component Structure
+
+```jsx
+// Button.jsx
+import React from 'react';
+import './Button.css';
+
+const Button = ({ children, onClick, variant = 'primary' }) => {
+  return (
+    <button
+      className={`btn btn-${variant}`}
+      onClick={onClick}
+    >
+      {children}
+    </button>
+  );
+};
+
+export default Button;
+```
+
+## Best Practices
+
+- **One component per file**
+- **Clear component naming**
+- **Separate concerns** (UI, logic, styles)
+- **Reusable components**
+- **Consistent file structure**
+
+::right::
+
+## Project Setup
+
+```bash
+# Create new React app
+npx create-react-app tic-tac-toe
+
+# Navigate to project
+cd tic-tac-toe
+
+# Start development server
+npm start
+```
+
+<br>
+
+## Development Tools
+
+<div class="bg-green-50 p-4 rounded-lg">
+<h4 class="font-bold mb-2">Essential Tools</h4>
+
+- **React DevTools** - Browser extension for debugging
+- **ESLint** - Code linting and formatting
+- **Prettier** - Code formatting
+- **Vite** - Fast build tool (alternative to CRA)
+- **TypeScript** - Type safety (optional)
+
+<br>
+
+<h4 class="font-bold mb-2">Learning Resources</h4>
+- 📖 [React Documentation](https://react.dev/learn)
+- 🎮 [Tic-tac-toe Tutorial](https://react.dev/learn/tutorial-tic-tac-toe)
+- 🧪 [React Testing](https://react.dev/learn/testing)
+- 📚 [React Patterns](https://www.patterns.dev/posts/react-component-patterns)
+</div>
+
+---
+layout: center
+class: text-center
+---
+
+# Next Steps
+
+Continue your React learning journey
+
+## What's Next?
+
+<div class="grid grid-cols-3 gap-8 mt-12">
+
+<div class="text-center">
+  <div class="w-16 h-16 bg-blue-500 rounded-full flex items-center justify-center text-white text-2xl font-bold mx-auto mb-4">⚛️</div>
+  <h3 class="text-xl font-bold mb-2">React Hooks</h3>
+  <p class="text-sm opacity-75">useEffect, useContext, custom hooks</p>
+</div>
+
+<div class="text-center">
+  <div class="w-16 h-16 bg-green-500 rounded-full flex items-center justify-center text-white text-2xl font-bold mx-auto mb-4">🔄</div>
+  <h3 class="text-xl font-bold mb-2">State Management</h3>
+  <p class="text-sm opacity-75">Redux, Zustand, Jotai</p>
+</div>
+
+<div class="text-center">
+  <div class="w-16 h-16 bg-purple-500 rounded-full flex items-center justify-center text-white text-2xl font-bold mx-auto mb-4">🌐</div>
+  <h3 class="text-xl font-bold mb-2">Full-Stack Apps</h3>
+  <p class="text-sm opacity-75">Next.js, API integration</p>
+</div>
+
+</div>
+
+## Practice Projects
+
+<div class="mt-12 text-left max-w-2xl mx-auto">
+
+1. **Todo App** - Lists, forms, state management
+2. **Weather App** - API calls, loading states
+3. **E-commerce Cart** - Complex state, calculations
+4. **Blog Platform** - Routing, content management
+5. **Real-time Chat** - WebSockets, real-time updates
+
+</div>
+
+<div class="mt-12 text-center">
+  <a href="https://react.dev/learn" class="inline-block px-8 py-3 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors mr-4">
+    📖 React Docs
+  </a>
+  <a href="https://react.dev/learn/tutorial-tic-tac-toe" class="inline-block px-8 py-3 bg-green-500 text-white rounded-lg hover:bg-green-600 transition-colors">
+    🎮 Tic-tac-toe Tutorial
+  </a>
+</div>
+
+---
+layout: center
+class: text-center
+---
+
+# Thank You!
+
+<div class="text-4xl mb-8">🎉</div>
+
+## You've learned the fundamentals of React.js!
+
+<div class="mt-8 text-xl">
+  Start building amazing user interfaces with React
+</div>
+
+<div class="mt-12 grid grid-cols-2 gap-8 max-w-2xl mx-auto text-left">
+
+<div>
+  <h3 class="text-lg font-bold mb-2">📚 Resources</h3>
+  <ul class="space-y-1 text-sm">
+    <li>• <a href="https://react.dev/learn" class="text-blue-500">React Documentation</a></li>
+    <li>• <a href="https://react.dev/learn/tutorial-tic-tac-toe" class="text-blue-500">Tic-tac-toe Tutorial</a></li>
+    <li>• <a href="https://beta.reactjs.org/" class="text-blue-500">React Beta Docs</a></li>
+  </ul>
+</div>
+
+<div>
+  <h3 class="text-lg font-bold mb-2">🛠 Tools</h3>
+  <ul class="space-y-1 text-sm">
+    <li>• <a href="https://react.dev/learn" class="text-blue-500">React DevTools</a></li>
+    <li>• <a href="https://vitejs.dev/" class="text-blue-500">Vite (Build Tool)</a></li>
+    <li>• <a href="https://www.typescriptlang.org/" class="text-blue-500">TypeScript</a></li>
+  </ul>
+</div>
+
+</div>
+
+<div class="mt-12 text-center">
+  <div class="text-2xl font-bold mb-4">Happy Coding! 🚀</div>
+  <div class="text-sm opacity-75">Built with React.js</div>
+</div>
