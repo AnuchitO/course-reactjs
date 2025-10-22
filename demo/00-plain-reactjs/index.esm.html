@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>React 19 Demo</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f5f5f5;
+        }
+
+        .app {
+            text-align: center;
+            padding: 2rem;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            color: #007bff;
+            margin: 0 0 1rem 0;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="root"></div>
+    <script type="module">
+        import React from 'https://esm.sh/react@19.2.0';
+        import { createRoot } from 'https://esm.sh/react-dom@19.2.0/client';
+
+        const rootElement = document.getElementById('root');
+        const root = createRoot(rootElement);
+
+        const hello = React.createElement('h1', null, 'Hello React 19!')
+        
+        root.render(hello);
+    </script>
+
+</body>
+
+</html>
