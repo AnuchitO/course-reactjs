@@ -132,6 +132,37 @@ Modern, declarative, and component-based approach to building user interfaces
 </div>
 
 ---
+class: text-sm
+---
+
+# Create a New React App
+
+## Using Create React App
+
+```bash
+npx create-react-app my-app
+cd my-app
+npm start
+```
+
+## Using Vite (Recommended)
+
+```bash
+npm create vite@latest my-app -- --template react-ts
+cd my-app
+npm install
+npm run dev
+```
+
+## Using Next.js
+
+```bash
+npx create-next-app@latest
+# or
+yarn create next-app
+```
+
+---
 layout: two-cols-header
 layoutClass: gap-4
 class: text-sm
