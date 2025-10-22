@@ -22,11 +22,11 @@ mdc: true
 </div>
 
 <div class="text-2xl mb-12">
-  From Components to Complete Applications
+  AnuchitO
 </div>
 
 <div @click="$slidev.nav.next" class="mt-8 py-2 px-6 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors cursor-pointer inline-block">
-  Start Learning <carbon:arrow-right class="inline ml-2" />
+  Let's go <carbon:arrow-right class="inline ml-2" />
 </div>
 
 <div class="abs-br m-6 text-xl">
@@ -868,29 +868,572 @@ function Profile({ user }: { user: {name: string; email: string} }): JSX.Element
 }
 ```
 
-## Lifting State Up
+## Lifting State Up - Clear Examples 🚀
+
+When **sibling components** need to share or modify the same data.
+
+::left::
+
+### ❌ **Before: State in Child** (Can't share between siblings)
 
 ```tsx
-// Before: State in child
-function Child(): JSX.Element {
-  const [count, setCount] = useState<number>(0);
-  return <button onClick={() => setCount(count + 1)}>{count}</button>;
-}
+// Each child manages its own cart state
+function ProductCard({ product }: { product: { id: number; name: string; price: number } }): JSX.Element {
+  const [cart, setCart] = useState<Array<{id: number; name: string; price: number}>>([]);
+  const [cartCount, setCartCount] = useState<number>(0);
 
-// After: State in parent
-function Parent(): JSX.Element {
-  const [count, setCount] = useState<number>(0);
+  const addToCart = (): void => {
+    setCart([...cart, product]);
+    setCartCount(cartCount + 1);
+  };
 
   return (
-    <div>
-      <Child count={count} onIncrement={() => setCount(count + 1)} />
-      <AnotherChild count={count} />
+    <div className="product-card">
+      <h3>{product.name}</h3>
+      <p>${product.price}</p>
+      <button onClick={addToCart}>Add to Cart</button>
+    </div>
+  );
+}
+
+function CartDisplay(): JSX.Element {
+  const [cart, setCart] = useState<Array<{id: number; name: string; price: number}>>([]); // ❌ Different cart!
+  const [total, setTotal] = useState<number>(0);
+
+  return (
+    <div className="cart">
+      <h3>Shopping Cart ({cart.length} items)</h3>
+      {cart.map(item => (
+        <div key={item.id} className="cart-item">
+          {item.name} - ${item.price}
+        </div>
+      ))}
+      <p className="total">Total: ${total}</p>
+    </div>
+  );
+}
+
+// Parent can't coordinate - each has independent cart!
+function EcommerceApp(): JSX.Element {
+  return (
+    <div className="app">
+      <ProductCard product={{ id: 1, name: "Laptop", price: 999 }} />
+      <ProductCard product={{ id: 2, name: "Mouse", price: 25 }} />
+      <CartDisplay /> {/* Shows empty cart - no items added! */}
     </div>
   );
 }
 ```
 
-## Context API (Advanced)
+::right::
+
+### ✅ **After: State in Parent** (Shared state)
+
+```tsx
+// Child components receive cart data and callbacks
+function ProductCard({
+  product,
+  onAddToCart
+}: {
+  product: { id: number; name: string; price: number };
+  onAddToCart: (product: { id: number; name: string; price: number }) => void;
+}): JSX.Element {
+  return (
+    <div className="product-card">
+      <h3>{product.name}</h3>
+      <p>${product.price}</p>
+      <button onClick={() => onAddToCart(product)}>Add to Cart</button>
+    </div>
+  );
+}
+
+function CartDisplay({
+  cart,
+  total
+}: {
+  cart: Array<{id: number; name: string; price: number}>;
+  total: number;
+}): JSX.Element {
+  return (
+    <div className="cart">
+      <h3>Shopping Cart ({cart.length} items)</h3>
+      {cart.map(item => (
+        <div key={item.id} className="cart-item">
+          {item.name} - ${item.price}
+        </div>
+      ))}
+      <p className="total">Total: ${total.toFixed(2)}</p>
+    </div>
+  );
+}
+
+// Parent manages shared cart state
+function EcommerceApp(): JSX.Element {
+  const [cart, setCart] = useState<Array<{id: number; name: string; price: number}>>([]);
+
+  const addToCart = (product: { id: number; name: string; price: number }): void => {
+    setCart([...cart, product]);
+  };
+
+  const total = cart.reduce((sum, item) => sum + item.price, 0);
+
+  return (
+    <div className="app">
+      <ProductCard
+        product={{ id: 1, name: "Laptop", price: 999 }}
+        onAddToCart={addToCart}
+      />
+      <ProductCard
+        product={{ id: 2, name: "Mouse", price: 25 }}
+        onAddToCart={addToCart}
+      />
+      <CartDisplay cart={cart} total={total} />
+      {/* Cart now shows all added items! 🎉 */}
+    </div>
+  );
+}
+```
+
+---
+
+## Real-World Example: Todo App 📝
+
+### ❌ **Problem: Can't share todos between components**
+
+```tsx
+// Todo input - has its own state
+function TodoInput(): JSX.Element {
+  const [todos, setTodos] = useState<string[]>([]);
+  const [input, setInput] = useState<string>('');
+
+  const addTodo = (): void => {
+    if (input.trim()) {
+      setTodos([...todos, input]);
+      setInput('');
+    }
+  };
+
+  return (
+    <div>
+      <input value={input} onChange={e => setInput(e.target.value)} />
+      <button onClick={addTodo}>Add</button>
+    </div>
+  );
+}
+
+// Todo list - has its own separate state
+function TodoList(): JSX.Element {
+  const [todos, setTodos] = useState<string[]>([]); // ❌ Different state!
+
+  return (
+    <ul>
+      {todos.map((todo, i) => <li key={i}>{todo}</li>)}
+    </ul>
+  );
+}
+```
+
+### ✅ **Solution: Lift state to parent**
+
+```tsx
+// Todo input - receives callbacks
+function TodoInput({ onAddTodo }: { onAddTodo: (todo: string) => void }): JSX.Element {
+  const [input, setInput] = useState<string>('');
+
+  const handleSubmit = (): void => {
+    if (input.trim()) {
+      onAddTodo(input);
+      setInput('');
+    }
+  };
+
+  return (
+    <div>
+      <input value={input} onChange={e => setInput(e.target.value)} />
+      <button onClick={handleSubmit}>Add</button>
+    </div>
+  );
+}
+
+// Todo list - receives todos as props
+function TodoList({ todos }: { todos: string[] }): JSX.Element {
+  return (
+    <ul>
+      {todos.map((todo, i) => <li key={i}>{todo}</li>)}
+    </ul>
+  );
+}
+
+// Parent manages shared state
+function TodoApp(): JSX.Element {
+  const [todos, setTodos] = useState<string[]>([]);
+
+  const addTodo = (todo: string): void => {
+    setTodos([...todos, todo]);
+  };
+
+  return (
+    <div>
+      <TodoInput onAddTodo={addTodo} />
+      <TodoList todos={todos} />
+    </div>
+  );
+}
+```
+
+---
+
+## 🏗️ **Data Flow Pattern**
+
+```mermaid
+graph TB
+    A[Parent Component] --> B[Child A]
+    A --> C[Child B]
+    A --> D[Child C]
+
+    B -->|Props| A
+    C -->|Props| A
+    D -->|Props| A
+
+    B -.->|Callbacks| A
+    C -.->|Callbacks| A
+    D -.->|Callbacks| A
+
+    style A fill:#e1f5fe
+    style B fill:#f3e5f5
+    style C fill:#f3e5f5
+    style D fill:#f3e5f5
+```
+
+**Data flows down** ⬇️ through props
+**Events flow up** ⬆️ through callbacks
+
+---
+
+## 🎯 **When to Lift State Up**
+
+- ✅ **Siblings need same data** (counters, todo items)
+- ✅ **Parent needs to coordinate children** (form steps, wizard)
+- ✅ **Data needs to persist across renders** (search results)
+- ✅ **Multiple components modify same data** (shopping cart)
+
+---
+
+## 🚀 **Real-Life "Lifting State Up" Scenarios**
+
+Here are **practical examples** developers encounter every day:
+
+---
+
+## 1. **E-commerce Shopping Cart** 🛒
+
+### ❌ **Problem: Cart items not shared**
+```tsx
+// Add to cart button - has its own cart state
+function ProductCard({ product }: { product: Product }): JSX.Element {
+  const [cart, setCart] = useState<Product[]>([]); // ❌ Local state
+
+  const addToCart = () => {
+    setCart([...cart, product]);
+  };
+
+  return (
+    <div>
+      <h3>{product.name}</h3>
+      <button onClick={addToCart}>Add to Cart</button>
+    </div>
+  );
+}
+
+// Cart display - has separate cart state
+function CartDisplay(): JSX.Element {
+  const [cart, setCart] = useState<Product[]>([]); // ❌ Different state!
+
+  return (
+    <div>
+      Cart: {cart.length} items
+      {cart.map(item => <div key={item.id}>{item.name}</div>)}
+    </div>
+  );
+}
+```
+
+### ✅ **Solution: Shared cart state**
+```tsx
+// Parent manages cart state
+function EcommerceApp(): JSX.Element {
+  const [cart, setCart] = useState<Product[]>([]);
+
+  const addToCart = (product: Product) => {
+    setCart([...cart, product]);
+  };
+
+  return (
+    <div>
+      <ProductCard product={product} onAddToCart={addToCart} />
+      <CartDisplay cart={cart} />
+      {/* Both show same cart data! */}
+    </div>
+  );
+}
+```
+
+---
+
+## 2. **Social Media Post** 📱
+
+### ❌ **Problem: Like counts not synchronized**
+```tsx
+// Post component - local likes state
+function Post({ post }: { post: Post }): JSX.Element {
+  const [likes, setLikes] = useState<number>(post.likes); // ❌ Local state
+
+  const handleLike = () => {
+    setLikes(likes + 1);
+  };
+
+  return (
+    <div>
+      <p>{post.content}</p>
+      <button onClick={handleLike}>Like ({likes})</button>
+    </div>
+  );
+}
+
+// Like counter widget - separate state
+function LikeCounter(): JSX.Element {
+  const [totalLikes, setTotalLikes] = useState<number>(0); // ❌ Different count!
+
+  return <div>Total Likes: {totalLikes}</div>;
+}
+```
+
+### ✅ **Solution: Lifted state for consistency**
+```tsx
+function SocialApp(): JSX.Element {
+  const [totalLikes, setTotalLikes] = useState<number>(0);
+
+  const handleLike = () => {
+    setTotalLikes(prev => prev + 1);
+  };
+
+  return (
+    <div>
+      <Post onLike={handleLike} />
+      <LikeCounter totalLikes={totalLikes} />
+      <NotificationBadge likeCount={totalLikes} />
+    </div>
+  );
+}
+```
+
+---
+
+## 3. **Multi-Step Form Wizard** 📝
+
+### ❌ **Problem: Form data lost between steps**
+```tsx
+// Step 1 - personal info
+function PersonalInfoStep(): JSX.Element {
+  const [formData, setFormData] = useState<FormData>({
+    name: '', email: ''
+  }); // ❌ Local state
+
+  return (
+    <form>
+      <input
+        value={formData.name}
+        onChange={e => setFormData({...formData, name: e.target.value})}
+      />
+    </form>
+  );
+}
+
+// Step 2 - address info (can't access step 1 data)
+function AddressStep(): JSX.Element {
+  const [formData, setFormData] = useState<FormData>({
+    address: '', city: ''
+  }); // ❌ Separate state - no name/email!
+
+  return (
+    <form>
+      <input value={formData.address} placeholder="Address" />
+    </form>
+  );
+}
+```
+
+### ✅ **Solution: Shared form state across steps**
+```tsx
+function FormWizard(): JSX.Element {
+  const [currentStep, setCurrentStep] = useState<number>(1);
+  const [formData, setFormData] = useState<FormData>({
+    name: '', email: '', address: '', city: ''
+  });
+
+  const updateFormData = (field: keyof FormData, value: string) => {
+    setFormData(prev => ({ ...prev, [field]: value }));
+  };
+
+  return (
+    <div>
+      {currentStep === 1 && (
+        <PersonalInfoStep
+          formData={formData}
+          onUpdate={updateFormData}
+        />
+      )}
+      {currentStep === 2 && (
+        <AddressStep
+          formData={formData}
+          onUpdate={updateFormData}
+        />
+      )}
+      {/* All steps share same formData */}
+    </div>
+  );
+}
+```
+
+---
+
+## 4. **Dashboard with Filters** 📊
+
+### ❌ **Problem: Filters don't affect all widgets**
+```tsx
+// Filter component - local filter state
+function FilterBar(): JSX.Element {
+  const [filters, setFilters] = useState<Filters>({
+    category: 'all', dateRange: '7d'
+  }); // ❌ Local state
+
+  return (
+    <div>
+      <select value={filters.category}>
+        {/* filter options */}
+      </select>
+    </div>
+  );
+}
+
+// Chart widget - can't see filter changes
+function SalesChart(): JSX.Element {
+  const [data, setData] = useState<Data[]>([]); // ❌ No filter awareness
+
+  return <div>Sales Chart (unfiltered)</div>;
+}
+
+// Table widget - also can't see filters
+function SalesTable(): JSX.Element {
+  const [data, setData] = useState<Data[]>([]); // ❌ No filter awareness
+
+  return <div>Sales Table (unfiltered)</div>;
+}
+```
+
+### ✅ **Solution: Centralized filter state**
+```tsx
+function Dashboard(): JSX.Element {
+  const [filters, setFilters] = useState<Filters>({
+    category: 'all', dateRange: '7d'
+  });
+
+  const filteredData = useMemo(() => {
+    return data.filter(item => {
+      // Apply filters to data
+      return applyFilters(item, filters);
+    });
+  }, [data, filters]);
+
+  return (
+    <div>
+      <FilterBar filters={filters} onFiltersChange={setFilters} />
+      <div className="grid">
+        <SalesChart data={filteredData} />
+        <SalesTable data={filteredData} />
+        <KPICards data={filteredData} />
+      </div>
+      {/* All widgets update when filters change! */}
+    </div>
+  );
+}
+```
+
+---
+
+## 5. **Music Player Controls** 🎵
+
+### ❌ **Problem: Play/pause state not synchronized**
+```tsx
+// Player controls - local state
+function PlayerControls(): JSX.Element {
+  const [isPlaying, setIsPlaying] = useState<boolean>(false); // ❌ Local state
+
+  return (
+    <div>
+      <button onClick={() => setIsPlaying(!isPlaying)}>
+        {isPlaying ? 'Pause' : 'Play'}
+      </button>
+    </div>
+  );
+}
+
+// Progress bar - doesn't know play state
+function ProgressBar(): JSX.Element {
+  const [progress, setProgress] = useState<number>(0); // ❌ No play state
+
+  return <div>Progress: {progress}%</div>;
+}
+
+// Volume control - also independent
+function VolumeControl(): JSX.Element {
+  const [volume, setVolume] = useState<number>(50); // ❌ No coordination
+
+  return <input type="range" value={volume} />;
+}
+```
+
+### ✅ **Solution: Unified player state**
+```tsx
+function MusicPlayer(): JSX.Element {
+  const [isPlaying, setIsPlaying] = useState<boolean>(false);
+  const [currentTime, setCurrentTime] = useState<number>(0);
+  const [volume, setVolume] = useState<number>(50);
+
+  // All children receive shared state and controls
+  return (
+    <div>
+      <PlayerControls
+        isPlaying={isPlaying}
+        onPlayPause={() => setIsPlaying(!isPlaying)}
+      />
+      <ProgressBar
+        currentTime={currentTime}
+        isPlaying={isPlaying}
+      />
+      <VolumeControl
+        volume={volume}
+        onVolumeChange={setVolume}
+      />
+    </div>
+  );
+}
+```
+
+---
+
+## 🎯 **Pattern Recognition**
+
+**You need "Lifting State Up" when:**
+
+- **Multiple components** need the **same data**
+- **One component's actions** should **affect siblings**
+- **Parent needs to coordinate** child component behavior
+- **Data needs to persist** across component re-renders
+- **State changes** need to **trigger updates** in multiple places
+
+**Common scenarios:**
+- Shopping carts, forms, dashboards, media players, collaborative tools, real-time apps
 
 ```tsx
 // Create context
