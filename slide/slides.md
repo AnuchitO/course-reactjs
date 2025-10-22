@@ -145,6 +145,14 @@ cd my-app
 npm start
 ```
 
+## Using Vite CommonJS
+```bash
+npm create vite@latest my-app -- --template react
+cd my-app
+npm install
+npm run dev
+```
+
 ## Using Vite (Recommended)
 
 ```bash
@@ -152,14 +160,6 @@ npm create vite@latest my-app -- --template react-ts
 cd my-app
 npm install
 npm run dev
-```
-
-## Using Next.js
-
-```bash
-npx create-next-app@latest
-# or
-yarn create next-app
 ```
 
 ---
