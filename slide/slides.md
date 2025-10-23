@@ -1672,24 +1672,101 @@ Hooks are functions that let you "hook into" React state and lifecycle features 
 <div class="grid grid-cols-3 gap-6 mt-8">
 
 <div class="text-center">
-  <div class="w-16 h-16 bg-blue-500 rounded-full flex items-center justify-center text-white text-xl font-bold mx-auto mb-4">🎯</div>
-  <h3 class="text-lg font-bold mb-2">useState</h3>
+  <div class="w-12 h-12 bg-blue-500 rounded-full flex items-center justify-center text-white text-xl font-bold mx-auto mb-2">🎯</div>
+  <h3 class="text-lg font-bold">useState</h3>
   <p class="text-sm opacity-75">Manage component state</p>
 </div>
 
 <div class="text-center">
-  <div class="w-16 h-16 bg-green-500 rounded-full flex items-center justify-center text-white text-xl font-bold mx-auto mb-4">⚡</div>
-  <h3 class="text-lg font-bold mb-2">useEffect</h3>
+  <div class="w-12 h-12 bg-green-500 rounded-full flex items-center justify-center text-white text-xl font-bold mx-auto mb-2">⚡</div>
+  <h3 class="text-lg font-bold">useEffect</h3>
   <p class="text-sm opacity-75">Side effects & lifecycle</p>
 </div>
 
 <div class="text-center">
-  <div class="w-16 h-16 bg-purple-500 rounded-full flex items-center justify-center text-white text-xl font-bold mx-auto mb-4">🌐</div>
-  <h3 class="text-lg font-bold mb-2">useContext</h3>
+  <div class="w-12 h-12 bg-purple-500 rounded-full flex items-center justify-center text-white text-xl font-bold mx-auto mb-2">🌐</div>
+  <h3 class="text-lg font-bold">useContext</h3>
   <p class="text-sm opacity-75">Access context values</p>
 </div>
 
 </div>
+
+---
+class: text-xs
+---
+
+# React Hooks Demo (most ➜ least used)
+
+### useState
+```tsx
+import { useState } from 'react';
+
+function Counter(): JSX.Element {
+  const [count, setCount] = useState<number>(0);
+  return (
+    <button onClick={() => setCount(c => c + 1)}>
+      Count: {count}
+    </button>
+  );
+}
+```
+
+### useEffect
+```tsx
+import { useEffect } from 'react';
+
+useEffect((): (() => void) => {
+  const id = setInterval((): void => console.log('tick'), 1000);
+  return (): void => clearInterval(id);
+}, []);
+```
+
+---
+
+### useMemo / useCallback
+```tsx
+import { useMemo, useCallback } from 'react';
+
+const total = useMemo(() => items.reduce((s, x) => s + x.price, 0), [items]);
+const onSelect = useCallback((id: number): void => setSelected(id), [setSelected]);
+```
+
+### useRef
+```tsx
+import { useRef, useEffect } from 'react';
+
+const inputRef = useRef<HTMLInputElement>(null);
+useEffect(() => inputRef.current?.focus(), []);
+```
+
+### useContext
+```tsx
+const theme = useContext(ThemeContext);
+```
+
+### useReducer
+```tsx
+import { useReducer } from 'react';
+
+function reducer(c: number, a: 'inc' | 'dec'): number {
+  return a === 'inc' ? c + 1 : c - 1;
+}
+const [count, dispatch] = useReducer(reducer, 0);
+```
+
+--- 
+
+### Other hooks (quick refs)
+- **useId** → generate stable IDs for accessibility
+- **useTransition** → mark state updates as non-urgent
+- **useDeferredValue** → defer expensive re-render values
+- **useLayoutEffect** → sync after DOM mutations (layout reads)
+- **useImperativeHandle** → expose imperative methods to parents
+- **useDebugValue** → label values in custom hooks for DevTools
+- **useSyncExternalStore** → subscribe to external stores reliably
+- **useInsertionEffect** → CSS-in-JS style injection timing
+
+<div class="mt-2 text-[10px] opacity-75">Reference: react.dev/reference/react/hooks</div>
 
 ---
 layout: two-cols
@@ -1795,6 +1872,65 @@ useEffect(() => {
 - Don't put objects/functions in dependencies (use useCallback/useMemo)
 
 </div>
+
+---
+layout: two-cols-header
+class: text-xs
+---
+
+# useEffect: Calling an API
+
+::left::
+
+```tsx
+import { useEffect, useState } from 'react';
+
+type User = { id: number; name: string };
+
+function Users(): JSX.Element {
+  const [users, setUsers] = useState<User[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    const ctrl = new AbortController();
+    async function load(): Promise<void> {
+      try {
+        setLoading(true);
+        setError(null);
+        const res = await fetch('https://jsonplaceholder.typicode.com/users', { signal: ctrl.signal });
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        const data: User[] = await res.json();
+        setUsers(data);
+      } catch (err) {
+        if ((err as any).name !== 'AbortError') setError((err as Error).message);
+      } finally {
+        setLoading(false);
+      }
+    }
+    load();
+    return () => ctrl.abort();
+  }, []);
+
+  if (loading) return <div>Loading...</div>;
+  if (error) return <div>Error: {error}</div>;
+  return (
+    <ul>
+      {users.map(u => <li key={u.id}>{u.name}</li>)}
+    </ul>
+  );
+}
+```
+
+::right::
+
+- **Dependencies** — add to array when fetch depends on props/state (e.g., `userId`)
+- **Abort on cleanup** — cancel in-flight requests on unmount or param change
+- **Handle loading/error** — show UI states for better UX
+- **Idempotent effects** — avoid re-fetching by stabilizing inputs
+- **Separate concerns** — extract to `useFetch` custom hook for reuse
+
+<div class="mt-2 text-[10px] opacity-75">Reference: react.dev/reference/react/useEffect</div>
 
 ---
 layout: image-right
