@@ -15,7 +15,7 @@ jobs:
         working-directory: ./slide
 
       - name: Build slides
-        run: npm run build:base
+        run: npm run build:pages
         working-directory: ./slide
 
       - name: Deploy pages
