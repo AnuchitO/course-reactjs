@@ -1,13 +1,5 @@
-name: Deploy Slides to GitHub Pages
-
-on:
-  push:
-    branches:
-      - main
-    paths:
-      - 'slide/**'
-  workflow_dispatch:
-
+name: Deploy pages
+on: push
 jobs:
   deploy:
     runs-on: ubuntu-latest
@@ -15,21 +7,20 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Setup Bun
-        uses: oven-sh/setup-bun@v2
-        with:
-          bun-version: latest
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
 
       - name: Install dependencies
-        run: bun install
-        working-directory: slide
+        run: npm install --legacy-peer-deps
+        working-directory: ./slide
 
-      - name: Build
-        run: bun run build:pages
-        working-directory: slide
+      - name: Build slides
+        run: npm run build:base
+        working-directory: ./slide
 
-      - name: Deploy
-        uses: peaceiris/actions-gh-pages@v4
+      - name: Deploy pages
+        uses: crazy-max/ghaction-github-pages@v2
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./slide/dist
+          build_dir: ./slide/dist
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
