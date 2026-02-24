@@ -1,14 +1,7 @@
-import './App.css'
+import CheckInPage from './components/CheckInPage'
 
 function App() {
-
-  return (
-    <div >
-      <h1>
-        Tailwind v4 + Bun 🚀
-      </h1>
-    </div>
-  )
+  return <CheckInPage />
 }
 
 export default App
