@@ -43,4 +43,40 @@ describe('BookingForm', () => {
     await user.type(input, 'ABC123')
     expect(input).toHaveValue('ABC123')
   })
+
+  it('disables button when both fields are empty', () => {
+    render(<BookingForm />)
+    expect(screen.getByRole('button', { name: /retrieve booking/i })).toBeDisabled()
+  })
+
+  it('disables button when only last name is filled', async () => {
+    const user = userEvent.setup()
+    render(<BookingForm />)
+    await user.type(screen.getByLabelText(/last name/i), 'Smith')
+    expect(screen.getByRole('button', { name: /retrieve booking/i })).toBeDisabled()
+  })
+
+  it('disables button when only booking reference is filled', async () => {
+    const user = userEvent.setup()
+    render(<BookingForm />)
+    await user.type(screen.getByLabelText(/booking reference/i), 'ABC123')
+    expect(screen.getByRole('button', { name: /retrieve booking/i })).toBeDisabled()
+  })
+
+  it('enables button when both fields are filled', async () => {
+    const user = userEvent.setup()
+    render(<BookingForm />)
+    await user.type(screen.getByLabelText(/last name/i), 'Smith')
+    await user.type(screen.getByLabelText(/booking reference/i), 'ABC123')
+    expect(screen.getByRole('button', { name: /retrieve booking/i })).toBeEnabled()
+  })
+
+  it('disables button again when a field is cleared', async () => {
+    const user = userEvent.setup()
+    render(<BookingForm />)
+    await user.type(screen.getByLabelText(/last name/i), 'Smith')
+    await user.type(screen.getByLabelText(/booking reference/i), 'ABC123')
+    await user.clear(screen.getByLabelText(/last name/i))
+    expect(screen.getByRole('button', { name: /retrieve booking/i })).toBeDisabled()
+  })
 })
