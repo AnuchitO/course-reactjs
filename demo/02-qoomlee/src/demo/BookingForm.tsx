@@ -33,7 +33,7 @@ export const BookingForm = () => {
                 Retrieve Booking
             </button>
 
-            <div>
+            <div className="mt-5 sm:mt-6 p-3.5 sm:p-4 bg-sky-50 rounded-lg border border-sky-100">
                 <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
                     <span className="font-semibold text-sky-700">Tip:</span> Online check-in opens 24 hours before departure and closes 2 hours before departure.
                 </p>
