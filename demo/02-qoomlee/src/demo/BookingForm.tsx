@@ -12,6 +12,12 @@ export const BookingForm = () => {
                     placeholder="Your last name" />
             </div>
 
+            <div >
+                <label htmlFor="bookingRef" >
+                    Booking reference (PNR)
+                </label>
+            </div>
+
         </form>
     )
 }
