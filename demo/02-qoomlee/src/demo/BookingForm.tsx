@@ -5,7 +5,7 @@ export const BookingForm = () => {
             <h2 className="text-lg font-bold text-gray-800 mb-4">Retrieve Your Booking</h2>
 
             <div className="mb-4">
-                <label htmlFor="lastName" >Last Name</label>
+                <label htmlFor="lastName" className="block text-sm font-medium text-gray-700 mb-1">Last Name</label>
                 <input
                     id="lastName"
                     type="text"
