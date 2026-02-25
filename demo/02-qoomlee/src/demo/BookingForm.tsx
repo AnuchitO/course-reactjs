@@ -27,7 +27,9 @@ export const BookingForm = () => {
             </div>
 
 
-            <button type="submit">
+            <button type="submit"
+                className={`w-full font-semibold py-3 rounded-xl transition-colors text-white bg-sky-600 hover:bg-sky-700'}`}
+            >
                 Retrieve Booking
             </button>
 
