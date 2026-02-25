@@ -6,6 +6,10 @@ export const BookingForm = () => {
 
             <div >
                 <label htmlFor="lastName" >Last Name</label>
+                <input
+                    id="lastName"
+                    type="text"
+                    placeholder="Your last name" />
             </div>
 
         </form>
