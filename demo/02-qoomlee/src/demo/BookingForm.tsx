@@ -26,6 +26,12 @@ export const BookingForm = () => {
             <button type="submit">
                 Retrieve Booking
             </button>
+
+            <div>
+                <p>
+                    <span>Tip:</span> Online check-in opens 24 hours before departure and closes 2 hours before departure.
+                </p>
+            </div>
         </form>
     )
 }
