@@ -4,7 +4,7 @@ export const BookingForm = () => {
         <form className="mx-4 -mt-6 bg-white rounded-2xl shadow-lg p-6 relative z-10">
             <h2 className="text-lg font-bold text-gray-800 mb-4">Retrieve Your Booking</h2>
 
-            <div >
+            <div className="mb-4">
                 <label htmlFor="lastName" >Last Name</label>
                 <input
                     id="lastName"
