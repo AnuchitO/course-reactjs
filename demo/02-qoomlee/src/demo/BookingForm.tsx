@@ -22,6 +22,10 @@ export const BookingForm = () => {
                     placeholder="ABC123 OR 1234567890123" />
             </div>
 
+
+            <button type="submit">
+                Retrieve Booking
+            </button>
         </form>
     )
 }
