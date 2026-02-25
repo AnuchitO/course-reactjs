@@ -27,52 +27,6 @@ function HeroBanner() {
   )
 }
 
-function BookingForm() {
-  return (
-    <form className="mx-4 -mt-6 bg-white rounded-2xl shadow-lg p-6 relative z-10">
-      <h2 className="text-lg font-bold text-gray-800 mb-4">Retrieve Your Booking</h2>
-
-      <div className="mb-4">
-        <label htmlFor="demo-lastName" className="block text-sm font-medium text-gray-700 mb-1">
-          Last Name
-        </label>
-        <input
-          id="demo-lastName"
-          type="text"
-          placeholder="Your last name"
-          className="w-full border border-gray-300 rounded-lg px-4 py-2.5 text-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-transparent"
-        />
-      </div>
-
-      <div className="mb-5">
-        <label htmlFor="demo-bookingRef" className="block text-sm font-medium text-gray-700 mb-1">
-          Booking reference (PNR)
-        </label>
-        <input
-          id="demo-bookingRef"
-          type="text"
-          placeholder="ABC123 OR 1234567890123"
-          className="w-full border border-gray-300 rounded-lg px-4 py-2.5 text-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-transparent"
-        />
-      </div>
-
-      <button
-        type="button"
-        className="w-full bg-gray-300 cursor-not-allowed font-semibold py-3 rounded-xl text-white"
-      >
-        Retrieve Booking
-      </button>
-
-      <div className="mt-5 sm:mt-6 p-3.5 sm:p-4 bg-sky-50 rounded-lg border border-sky-100">
-        <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
-          <span className="font-semibold text-sky-700">Tip:</span> Online check-in opens 24 hours before departure and closes 2 hours before departure.
-        </p>
-      </div>
-
-    </form>
-  )
-}
-
 function FlightStatus() {
   return (
     <section className="mx-4 mt-6 bg-white rounded-2xl shadow-sm p-5">
@@ -131,97 +85,20 @@ function BottomNav() {
   )
 }
 
-function SelectPassengers() {
-  const passengers = [
-    { id: '1', name: 'ALEX HUUM', type: 'ADT', seat: '12A', selected: true },
-    { id: '2', name: 'Somsee Kuum', type: 'ADT', seat: '12B', selected: true },
-  ]
-
-  return (
-    <div className="min-h-screen bg-gray-50 flex flex-col">
-      <div className="flex items-center justify-between px-4 py-3 bg-white border-b border-gray-200">
-        <div className="flex items-center gap-3">
-          <button type="button" className="text-gray-500">
-            <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
-            </svg>
-          </button>
-          <div>
-            <span className="block text-base font-bold text-gray-800">Check-in</span>
-            <span className="block text-xs text-gray-400">Select Passengers</span>
-          </div>
-        </div>
-        <span className="text-xs text-gray-400">Step 2 of 5</span>
-      </div>
-
-      <div className="h-1 bg-gray-200">
-        <div className="h-1 bg-sky-500 w-2/5" />
-      </div>
-
-      <div className="flex-1 px-4 pt-6 pb-4">
-        <div className="bg-white rounded-2xl shadow-sm p-5">
-          <h2 className="text-lg font-bold text-gray-800 mb-1">Select Passengers</h2>
-          <p className="text-sm text-gray-400 mb-4">Choose passengers for check-in</p>
-
-          <div className="space-y-3">
-            {passengers.map((p) => (
-              <div
-                key={p.id}
-                className={`w-full text-left rounded-xl border-2 p-4 relative ${p.selected ? 'border-sky-500 bg-sky-50' : 'border-gray-200 bg-white'
-                  }`}
-              >
-                <span className="block text-base font-semibold text-gray-800">{p.name}</span>
-                <div className="flex items-center gap-2 mt-1">
-                  <span className="text-xs bg-gray-100 text-gray-600 px-2 py-0.5 rounded">{p.type}</span>
-                  <span className="text-xs text-gray-400">Seat {p.seat}</span>
-                </div>
-                {p.selected && (
-                  <div className="absolute top-0 right-0 w-8 h-8 bg-sky-500 rounded-bl-xl rounded-tr-[10px] flex items-center justify-center">
-                    <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" strokeWidth={3} viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
-                    </svg>
-                  </div>
-                )}
-              </div>
-            ))}
-          </div>
-        </div>
-
-        <div className="flex justify-end mt-4">
-          <button type="button" className="flex items-center gap-1 text-sm text-gray-500">
-            <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
-            </svg>
-            Clear All
-          </button>
-        </div>
-      </div>
-
-      <div className="px-4 py-4 bg-white border-t border-gray-200 flex gap-3">
-        <button type="button" className="flex-1 py-3 rounded-xl border border-gray-300 font-semibold text-gray-700 bg-white">
-          Back
-        </button>
-        <button type="button" className="flex-1 py-3 rounded-xl font-semibold text-white bg-sky-600 hover:bg-sky-700">
-          Continue
-        </button>
-      </div>
-    </div>
-  )
-}
-
 export default function CheckInDemo() {
   return (
     <div className="max-w-md mx-auto bg-gray-100 min-h-screen">
       <div className="min-h-screen bg-gray-50 pb-20">
         <Header />
         <HeroBanner />
-        <BookingForm />
+
+        {/* <BookingForm /> */}
+
         <FlightStatus />
         <BottomNav />
       </div>
 
       <h2 className="text-center text-lg font-bold py-4 bg-white border-b mt-8">Select Passengers Page</h2>
-      <SelectPassengers />
     </div>
   )
 }
