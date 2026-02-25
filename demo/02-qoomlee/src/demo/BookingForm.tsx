@@ -15,7 +15,7 @@ export const BookingForm = () => {
             </div>
 
             <div className="mb-4">
-                <label htmlFor="bookingRef" >
+                <label htmlFor="bookingRef" className="block text-sm font-medium text-gray-700 mb-1">
                     Booking reference (PNR)
                 </label>
                 <input
